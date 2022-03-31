@@ -1,41 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>WormRP</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link crossorigin="anonymous" media="all" rel="stylesheet" href="/base.css" />
-</head>
+<?php
 
-<body>
-	<nav class="navbar">
-		<div class="noChonk">
-			<span class="site-branding">
-				<a href="/">WormRP</a>
-			</span>
-			<ul class="nav-items-standard">
-				<li><a href="https://www.reddit.com/r/wormrp">Reddit</a></li>
-				<li><a href="https://discord.gg/KjYAwes">Discord</a></li>
-				<li><a href="https://wiki.wormrp.com">Wiki</a></li>
-				<!-- <li><a href="/map.php">Map</a></li> -->
-				<!-- <li><a href="/reports/">Reports</a></li> -->
-			</ul>
-		</div>
-	</nav>
-	<main>
-	<h1>About Us</h1>
-		<p>Welcome to  WormRP! We are a roleplay community set in the setting of <a href="https://parahumans.wordpress.com/"><em>Worm</em></a>, a superhero web serial made by Wildbow. Our setting is an Alternative Universe of that found in canon, and while reading the novel is encouraged, it is in no way required to hop into the action.</p>
-		<p>Based in the city of Devilfish, Minnesota, a city that has just crossed the threshold between medium-sized boom-town into a flourishing major city, and with that increase of wealth, size, and population comes the inevitable flood of super powered parahumans looking to capitalize on it.</p>
-		<p>Be they hero, villain, and all those in-between, we invite you to join us and help us build this setting together!</p>
-	
-	
-	<hr />
-	
-	</main>
-	
-	<footer>
-		<p><small>Copyright © 2015-<?php echo date('Y'); ?> /r/WormRP contributors.<br />Content is available under <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</a> unless otherwise noted.</small></p>
-	</footer>
-	
-</body>
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/config.php';
 
-</html>
+session_start(['cookie_lifetime' => 86400 * 7]);
+date_default_timezone_set('UTC');
+
+if (array_key_exists('wormrp.com/auth', $_SESSION)) {
+    $provider = new \Wohali\OAuth2\Client\Provider\Discord([
+        'clientId' => $config['clientId'],
+        'clientSecret' => $config['clientSecret'],
+        'redirectUri' => 'http://localhost:8000/auth'
+    ]);
+
+    if ($_SESSION['wormrp.com/auth']->hasExpired()) {
+        $_SESSION['wormrp.com/auth'] = $provider->getAccessToken('refresh_token', [
+            'refresh_token' => $_SESSION['wormrp.com/auth']->getRefreshToken()
+        ]);
+    }
+}
+
+$db = \Doctrine\DBAL\DriverManager::getConnection(['url' => $config['db']], new \Doctrine\DBAL\Configuration());
+
+$dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) {
+    $r->addRoute('GET', '/', 'HomepageHandler');
+    $r->addRoute('GET', '/auth', 'AuthHandler');
+    $r->addRoute('GET', '/logout', 'LogoutHandler');
+});
+
+$uri = $_SERVER['REQUEST_URI'];
+if (false !== $pos = strpos($uri, '?')) {
+    $uri = substr($uri, 0, $pos);
+}
+$uri = rawurldecode($uri);
+$routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $uri);
+switch ($routeInfo[0]) {
+    case FastRoute\Dispatcher::NOT_FOUND:
+        $vars = ['uri' => $uri];
+        $handler = new Handler\NotFoundHandler();
+        $handler->respond($vars);
+        break;
+    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+        // TODO: return json as needed?
+        $vars = ['allowedMethods' => $routeInfo[1]];
+        $handler = new Handler\BadMethodHandler();
+        $handler->respond($vars);
+        break;
+    case FastRoute\Dispatcher::FOUND:
+        $hname = "Handler\\{$routeInfo[1]}";
+        $handler = new $hname();
+        $handler->respond($routeInfo[2]);
+        break;
+}

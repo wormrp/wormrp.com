@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}WormRP{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link crossorigin="anonymous" media="all" rel="stylesheet" href="/base.css" />
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="noChonk">
+			<span class="site-branding">
+				<a href="/">WormRP</a>
+			</span>
+        <ul class="nav-items-standard">
+            <li><a href="https://www.reddit.com/r/wormrp">Reddit</a></li>
+            <li><a href="https://discord.gg/KjYAwes">Discord</a></li>
+            <li><a href="https://wiki.wormrp.com">Wiki</a></li>
+            <!-- <li><a href="/map.php">Map</a></li> -->
+            <!-- <li><a href="/reports/">Reports</a></li> -->
+        </ul>
+        <ul class="nav-items-user">
+            {% if session.discordTag %}
+                <li>
+                    {{ session.discordTag }}
+                    <img src="https://cdn.discordapp.com/avatars/{{ session.discordID }}/{{ session.discordAv }}.png?size=32"
+                         alt="Avatar" style="max-height: 1em;" />
+                </li>
+                <li><a href='/logout'>Log out</a></li>
+            {% else %}
+                <li><a href='/auth'>Log in</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<main>
+    {% block content %}{% endblock content %}
+
+    <hr />
+</main>
+
+<footer>
+    <p><small>Copyright © 2015-<?php
+            echo date('Y'); ?> /r/WormRP contributors.<br />
+            Content is available under <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
+                Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</a> unless otherwise
+            noted.</small></p>
+</footer>
+
+</body>
+
+</html>
