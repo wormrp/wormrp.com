@@ -1,11 +1,9 @@
 <?php
 
-/**
- * Yasmin
- * Copyright 2017-2018 Charlotte Dunois, All Rights Reserved
- *
- * Website: https://charuru.moe
- * License: https://github.com/CharlotteDunois/Yasmin/blob/master/LICENSE
+/*
+ * Copyright (c) 2022 Keira Dueck <sylae@calref.net>
+ * Use of this source code is governed by the MIT license, which
+ * can be found in the LICENSE file.
  */
 
 /**

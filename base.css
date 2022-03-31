@@ -1,240 +1,247 @@
+/*
+ * Copyright (c) 2022 Keira Dueck <sylae@calref.net>
+ * Use of this source code is governed by the MIT license, which
+ * can be found in the LICENSE file.
+ */
+
 /* stolen and adapted from another keira project */
 
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
-  font-family: "Atkinson Hyperlegible", sans-serif;
-  margin: 0;
-  background-color: #e1e2e1;
-  font-weight: 400;
-  line-height: 1.45;
-  color: #333;
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    margin: 0;
+    background-color: #e1e2e1;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #333;
 }
 
 main, footer {
-  max-width: 1170px;
-  margin: 0 auto;
-  padding: 0 15px;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 a {
-  text-decoration: none;
-  color: #5c5c5c;
+    text-decoration: none;
+    color: #5c5c5c;
 }
 
 a:hover {
-  color: #0c0c0c;
+    color: #0c0c0c;
 }
 
 html {
-  font-size: 1em;
+    font-size: 1em;
 }
 
 p {
-  margin-bottom: 1.3em;
+    margin-bottom: 1.3em;
 }
 
 h1, h2, h3, h4 {
-  margin: 1.414em 0 0.5em;
-  font-weight: inherit;
-  line-height: 1.2;
+    margin: 1.414em 0 0.5em;
+    font-weight: inherit;
+    line-height: 1.2;
 }
 
 h1 {
-  margin-top: 0;
-  font-size: 2.441em;
+    margin-top: 0;
+    font-size: 2.441em;
 }
 
 h2 {
-  font-size: 1.953em;
+    font-size: 1.953em;
 }
 
 h3 {
-  font-size: 1.563em;
+    font-size: 1.563em;
 }
 
 h4 {
-  font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 small {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 /* Top navbar stuff */
 nav {
-  background-color: #0c0c0c;
-  color: #ffbe47;
-  padding: 0.1em 1rem;
-  margin-bottom: 2rem;
+    background-color: #0c0c0c;
+    color: #ffbe47;
+    padding: 0.1em 1rem;
+    margin-bottom: 2rem;
 }
 
 nav .noChonk {
-  max-width: 1170px;
-  margin: 0 auto;
+    max-width: 1170px;
+    margin: 0 auto;
 }
 
 nav a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 nav a:hover {
-  color: #c8a900;
+    color: #c8a900;
 }
 
 nav .site-branding {
-  font-size: x-large;
-  background-image: url("/logo.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  padding-left: 1.75em;
-  /* not rem */
+    font-size: x-large;
+    background-image: url("/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-left: 1.75em;
+    /* not rem */
 }
 
 nav ul {
-  list-style: none;
-  display: inline-flex;
+    list-style: none;
+    display: inline-flex;
 }
 
 nav li {
-  vertical-align: middle;
-  padding: 0 1rem;
-  height: 100%;
+    vertical-align: middle;
+    padding: 0 1rem;
+    height: 100%;
 }
 
 nav li a {
-  display: block;
+    display: block;
 }
 
 .nav-items-user {
-  float: right;
+    float: right;
 }
 
 @media (max-width: 767.98px) {
-  nav {
-    padding: 1rem;
-  }
+    nav {
+        padding: 1rem;
+    }
 
-  nav ul {
-    display: block;
-  }
+    nav ul {
+        display: block;
+    }
 
-  nav li a {
-    vertical-align: middle;
-    padding: 1rem;
-    height: 100%;
-    margin-left: -2rem;
-  }
+    nav li a {
+        vertical-align: middle;
+        padding: 1rem;
+        height: 100%;
+        margin-left: -2rem;
+    }
 
-  .nav-items-user {
-    float: unset;
-  }
+    .nav-items-user {
+        float: unset;
+    }
 
-  nav li a:hover {
-    background-color: #333;
-  }
+    nav li a:hover {
+        background-color: #333;
+    }
 }
+
 /* footer */
 footer {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 footer div {
-  min-width: 292.5px;
+    min-width: 292.5px;
 }
 
 /* forms */
 .formItem label, .formItem .shim {
-  min-width: 10rem;
-  display: inline-block;
-  text-align: right;
-  vertical-align: top;
-  padding-right: 0.5rem;
+    min-width: 10rem;
+    display: inline-block;
+    text-align: right;
+    vertical-align: top;
+    padding-right: 0.5rem;
 }
 
 .formItem {
-  padding: 0.5rem 0;
+    padding: 0.5rem 0;
 }
 
 .formItem input, .formItem textarea, .formItem select {
-  padding: 5px;
-  width: 50rem;
-  max-width: 100%;
-  background-color: #f5f5f6;
-  border: 1px solid #c8a900;
-  box-sizing: content-box;
+    padding: 5px;
+    width: 50rem;
+    max-width: 100%;
+    background-color: #f5f5f6;
+    border: 1px solid #c8a900;
+    box-sizing: content-box;
 }
 
 .formItem textarea {
-  height: 30rem;
+    height: 30rem;
 }
 
 .formItem input[type=submit] {
-  width: initial;
-  background-color: #ffbe47;
-  border: 1px solid #c8a900;
-  font-size: large;
-  padding: 0.5rem 1rem;
+    width: initial;
+    background-color: #ffbe47;
+    border: 1px solid #c8a900;
+    font-size: large;
+    padding: 0.5rem 1rem;
 }
 
 .formItem a {
-  padding-left: 1rem;
-  padding-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .author {
-  display: flex;
-  align-items: flex-start;
-  padding: 1em;
+    display: flex;
+    align-items: flex-start;
+    padding: 1em;
 }
 
 .author > div {
-  flex: 1;
+    flex: 1;
 }
 
 .author img {
-  max-height: 64px;
-  padding-right: 1em;
+    max-height: 64px;
+    padding-right: 1em;
 }
 
 .author .authorName {
-  font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 .author .pubDate {
-  font-style: italic;
+    font-style: italic;
 }
 
 .words {
-  max-width: 40em;
-  margin: auto;
-  padding-bottom: 3em;
-  text-align: justify;
+    max-width: 40em;
+    margin: auto;
+    padding-bottom: 3em;
+    text-align: justify;
 }
 
 .words hr {
-  margin: 5em;
+    margin: 5em;
 }
 
 table {
-  width: 100%;
-  margin-bottom: 1em;
-  text-align: left;
-  border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+    text-align: left;
+    border-collapse: collapse;
 }
 
 table th {
-  padding: 0.75em;
-  vertical-align: bottom;
-  border-bottom: 2px solid #ffbe47;
+    padding: 0.75em;
+    vertical-align: bottom;
+    border-bottom: 2px solid #ffbe47;
 }
 
 table td {
-  padding: 0.75em;
-  vertical-align: top;
-  border-top: 1px solid #ffbe47;
+    padding: 0.75em;
+    vertical-align: top;
+    border-top: 1px solid #ffbe47;
 }
