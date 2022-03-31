@@ -50,20 +50,20 @@ class AuthHandler
                 $_SESSION['discordID'] = $user->getId();
                 $_SESSION['isStaff'] = false;
 
-                // todo: check db if staff
                 $query = $db->executeQuery(
                     "select * from wormrp_staff where idUser = ?",
                     [$_SESSION['discordID']],
                     [ParameterType::INTEGER]
                 );
                 if ($query->rowCount() > 0) {
-                    if (in_array($query->fetchAssociative()['staffRole'], [456321111945248779])) {
+                    if (in_array($query->fetchAssociative()['staffRole'], [456321111945248779])) { // todo: CCA check
+                        $_SESSION['isStaff'] = true;
                     }
                 } else {
                     $_SESSION['isStaff'] = false;
                 }
 
-                $redirect = isset($_SESSION['post_auth_redirect']) ? $_SESSION['post_auth_redirect'] : '/';
+                $redirect = $_SESSION['post_auth_redirect'] ?? '/';
                 header("Location: $redirect");
             } catch (\Throwable $e) {
                 // var_dump($e);

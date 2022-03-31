@@ -41,15 +41,10 @@ class QueueItem
                 continue;
             }
 
-            switch ($k) {
-                case "postTime":
-                case "claimTime":
-                case "approvalTime":
-                    $x->$k = new Carbon($v);
-                    break;
-                default:
-                    $x->$k = $v;
-            }
+            $x->$k = match ($k) {
+                "postTime", "claimTime", "approvalTime" => new Carbon($v),
+                default => $v,
+            };
         }
 
         return $x;
