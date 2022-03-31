@@ -31,6 +31,8 @@ $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r)
     $r->addRoute('GET', '/', 'HomepageHandler');
     $r->addRoute('GET', '/auth', 'AuthHandler');
     $r->addRoute('GET', '/logout', 'LogoutHandler');
+
+    $r->addRoute('GET', '/queue', 'queueHandler');
 });
 
 $uri = $_SERVER['REQUEST_URI'];
