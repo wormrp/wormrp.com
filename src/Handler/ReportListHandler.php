@@ -22,6 +22,11 @@ class ReportListHandler
 
         $vars['session'] = $_SESSION;
 
+        $vars['breadcrumb'] = [
+            '/' => 'Home',
+            '/reports/' => 'Reports & Information',
+        ];
+
         echo $twig->render("reports.twig", $vars);
     }
 }

@@ -23,7 +23,12 @@ class QueueHandler
         $vars['session'] = $_SESSION;
         $vars['queue'] = $queue;
 
+        $vars['breadcrumb'] = [
+            '/' => 'Home',
+            '/reports/' => 'Reports & Information',
+            '/reports/queue' => 'Approval Queue',
+        ];
+
         echo $twig->render("queue.twig", $vars);
-        // var_dump($queue->first());
     }
 }

@@ -34,6 +34,16 @@
     </div>
 </nav>
 <main>
+    {% if breadcrumb is defined %}
+        <nav class="breadcrumb">
+            <ol>
+                {% for a, text in breadcrumb %}
+                    <li><a href="{{ a }}">{{ text }}</a></li>
+                {% endfor %}
+            </ol>
+        </nav>
+    {% endif %}
+
     {% block content %}{% endblock content %}
 
     <hr />

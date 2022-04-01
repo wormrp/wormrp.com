@@ -75,28 +75,28 @@ small {
 }
 
 /* Top navbar stuff */
-nav {
+nav.navbar {
     background-color: #0c0c0c;
     color: #ffbe47;
     padding: 0.1em 1rem;
     margin-bottom: 2rem;
 }
 
-nav .noChonk {
+nav.navbar .noChonk {
     max-width: 1170px;
     margin: 0 auto;
 }
 
-nav a {
+nav.navbar a {
     text-decoration: none;
     color: inherit;
 }
 
-nav a:hover {
+nav.navbar a:hover {
     color: #c8a900;
 }
 
-nav .site-branding {
+nav.navbar .site-branding {
     font-size: x-large;
     background-image: url("/logo.png");
     background-size: contain;
@@ -105,7 +105,7 @@ nav .site-branding {
     /* not rem */
 }
 
-nav ul {
+nav ul, nav ol {
     list-style: none;
     display: inline-flex;
 }
@@ -116,7 +116,7 @@ nav li {
     height: 100%;
 }
 
-nav li a {
+nav.navbar li a {
     display: block;
 }
 
@@ -267,4 +267,17 @@ tr.claimed {
 
 tr.approved {
     background-color: #d9d2e9;
+}
+
+.breadcrumb ol {
+    display: flex;
+    list-style: none;
+}
+
+.breadcrumb li {
+    padding: 0 0.2rem;
+}
+
+.breadcrumb li:not(:first-child)::before {
+    content: " » ";
 }
