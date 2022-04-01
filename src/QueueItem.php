@@ -55,6 +55,21 @@ class QueueItem
         return $x;
     }
 
+    public static function getSingleItem(int $id): ?self
+    {
+        global $db; // i know
+        $query = $db->executeQuery(
+            "select * from wormrp_queue where idPost = ?",
+            [$id],
+            [\Doctrine\DBAL\ParameterType::INTEGER]
+        );
+        if ($res = $query->fetchAssociative()) {
+            return self::createFromDBrow($res);
+        } else {
+            return null;
+        }
+    }
+
     public static function getRedditNameFromDiscord(int $idUser): ?string
     {
         global $db; // i know
