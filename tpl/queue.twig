@@ -32,9 +32,9 @@
                     {% else %}Pending approval
                     {% endif %}
                 </td>
-                <td><a href="https://www.reddit.com/user/{{ item.author }}">{{ item.author }}</a></td>
+                <td><a href="https://www.reddit.com/user/{{ item.author }}">/u/{{ item.author }}</a></td>
                 <td class="nowrap">
-                    {% if item.idApprover1 %}{{ item.getRedditNameFromDiscord(item.idApprover1) }}{% else %}Unclaimed{% endif %}
+                    {% if item.idApprover1 %}/u/{{ item.getRedditNameFromDiscord(item.idApprover1) }}{% else %}Unclaimed{% endif %}
                     {% include 'postref.twig' %}
                 </td>
             </tr>
