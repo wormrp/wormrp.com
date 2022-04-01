@@ -15,7 +15,7 @@ if (array_key_exists('wormrp.com/auth', $_SESSION)) {
     $provider = new \Wohali\OAuth2\Client\Provider\Discord([
         'clientId' => $config['clientId'],
         'clientSecret' => $config['clientSecret'],
-        'redirectUri' => 'http://localhost:8000/auth'
+        'redirectUri' => 'https://wormrp.com/auth'
     ]);
 
     if ($_SESSION['wormrp.com/auth']->hasExpired()) {

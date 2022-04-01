@@ -20,7 +20,7 @@ class AuthHandler
         $provider = new \Wohali\OAuth2\Client\Provider\Discord([
             'clientId' => $config['clientId'],
             'clientSecret' => $config['clientSecret'],
-            'redirectUri' => 'http://localhost:8000/auth'
+            'redirectUri' => 'https://wormrp.com/auth'
         ]);
 
         if (!isset($_GET['code'])) {
