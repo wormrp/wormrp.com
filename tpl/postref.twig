@@ -10,6 +10,11 @@
                 <form action="/reports/queue/{{ item.idPost }}/complete" method="post">
                     <button type="submit" class="btn-link">(Complete this approval)</button>
                 </form>
+            {% else %}
+                <form action="/reports/queue/{{ item.idPost }}/reset" method="post">
+                    <button type="submit" class="btn-link">(Reset to pending)</button>
+                </form>
+
             {% endif %}
         </em>
     </small>

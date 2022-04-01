@@ -124,4 +124,15 @@ class QueueItem
         $q->bindValue(1, $this->idPost, \Doctrine\DBAL\ParameterType::INTEGER);
         return (bool)$q->executeStatement();
     }
+
+    public function reset(): bool
+    {
+        global $db;
+
+        $q = $db->prepare(
+            "update wormrp_queue set approvalTime = null, claimTime = null, idApprover1 = null, idApprover2 = null where idPost = ?"
+        );
+        $q->bindValue(1, $this->idPost, \Doctrine\DBAL\ParameterType::INTEGER);
+        return (bool)$q->executeStatement();
+    }
 }
