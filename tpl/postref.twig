@@ -1,0 +1,16 @@
+{% if session.isStaff %}
+    <br />
+    <small>
+        <em>
+            {% if item.getState() == constant("STATE_PENDING", item) %}
+                <form action="/reports/queue/{{ item.idPost }}/claim" method="post">
+                    <button type="submit" class="btn-link">(Claim this approval)</button>
+                </form>
+            {% elseif item.getState() == constant("STATE_CLAIMED", item) %}
+                <form action="/reports/queue/{{ item.idPost }}/complete" method="post">
+                    <button type="submit" class="btn-link">(Complete this approval)</button>
+                </form>
+            {% endif %}
+        </em>
+    </small>
+{% endif %}

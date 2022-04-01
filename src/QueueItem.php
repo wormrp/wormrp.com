@@ -10,15 +10,20 @@ use CharlotteDunois\Collect\Collection;
 
 class QueueItem
 {
+    public const STATE_PENDING = 0;
+    public const STATE_CLAIMED = 1;
+    public const STATE_APPROVED = 2;
+
     public int $idPost;
     public string $flair;
     public string $author;
     public string $url;
+    public string $title;
     public Carbon $postTime;
-    public Carbon $claimTime;
-    public Carbon $approvalTime;
-    public int $idApprover1;
-    public int $idApprover2;
+    public ?Carbon $claimTime = null;
+    public ?Carbon $approvalTime = null;
+    public ?int $idApprover1 = null;
+    public ?int $idApprover2 = null;
 
     public static function getQueue(): Collection
     {
@@ -48,5 +53,60 @@ class QueueItem
         }
 
         return $x;
+    }
+
+    public static function getRedditNameFromDiscord(int $idUser): ?string
+    {
+        global $db; // i know
+        $query = $db->executeQuery(
+            "select * from wormrp_users where user = ?",
+            [$idUser],
+            [\Doctrine\DBAL\ParameterType::INTEGER]
+        );
+        if ($res = $query->fetchAssociative()) {
+            return $res['redditName'];
+        }
+        return null;
+    }
+
+    public function getStateClass(): string
+    {
+        return match ($this->getState()) {
+            self::STATE_PENDING => "pending",
+            self::STATE_CLAIMED => "claimed",
+            self::STATE_APPROVED => "approved",
+        };
+    }
+
+    public function getState(): int
+    {
+        if ($this->approvalTime instanceof Carbon) {
+            return self::STATE_APPROVED;
+        } elseif ($this->claimTime instanceof Carbon) {
+            return self::STATE_CLAIMED;
+        } else {
+            return self::STATE_PENDING;
+        }
+    }
+
+    public function claim(int $id): bool
+    {
+        global $db;
+
+        $q = $db->prepare(
+            "update wormrp_queue set claimTime = now(), idApprover1 = ?, approvalTime = null where idPost = ?"
+        );
+        $q->bindValue(1, $id, \Doctrine\DBAL\ParameterType::INTEGER);
+        $q->bindValue(2, $this->idPost, \Doctrine\DBAL\ParameterType::INTEGER);
+        return (bool)$q->executeStatement();
+    }
+
+    public function complete(): bool
+    {
+        global $db;
+
+        $q = $db->prepare("update wormrp_queue set approvalTime = now() where idPost = ?");
+        $q->bindValue(1, $this->idPost, \Doctrine\DBAL\ParameterType::INTEGER);
+        return (bool)$q->executeStatement();
     }
 }

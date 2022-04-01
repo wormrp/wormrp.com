@@ -1,0 +1,45 @@
+{% extends "base.twig" %}
+
+{% block title %}Approval Queue - WormRP{% endblock title %}
+
+{% block content %}
+
+    <h1>WormRP Approval Queue</h1>
+    <table>
+        <thead>
+        <tr>
+            <th class="nowrap">Submission Time</th>
+            <th class="nowrap">Title</th>
+            <th class="nowrap">Type</th>
+            <th class="nowrap">Status</th>
+            <th class="nowrap">Author</th>
+            <th class="nowrap">Approver</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in queue %}
+            <tr class="{{ item.getStateClass() }}">
+                <td class="nowrap">{{ item.postTime.toFormattedDateString() }}
+                    <br /><small><em>{{ item.postTime.longRelativeDiffForHumans(2) }}</em></small></td>
+                <td><a href="{{ item.url }}">{{ item.title }}</a></td>
+                <td>{{ item.flair }}</td>
+                <td class="nowrap">
+                    {% if item.getState() == constant("STATE_APPROVED", item) %}Approved {{ item.approvalTime.toFormattedDateString() }}
+                        <br /><small><em>{{ item.approvalTime.longRelativeDiffForHumans(2) }}</em></small>
+                    {% elseif item.getState() == constant("STATE_CLAIMED", item) %}Claimed {{ item.claimTime.toFormattedDateString() }}
+                        <br />
+                        <small><em>{{ item.claimTime.longRelativeDiffForHumans(2) }}</em></small>
+                    {% else %}Pending approval
+                    {% endif %}
+                </td>
+                <td><a href="https://www.reddit.com/user/{{ item.author }}">{{ item.author }}</a></td>
+                <td class="nowrap">
+                    {% if item.idApprover1 %}{{ item.getRedditNameFromDiscord(item.idApprover1) }}{% else %}Unclaimed{% endif %}
+                    {% include 'postref.twig' %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

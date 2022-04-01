@@ -29,10 +29,14 @@ $db = \Doctrine\DBAL\DriverManager::getConnection(['url' => $config['db']], new 
 
 $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', 'HomepageHandler');
+    $r->addRoute('GET', '/reports/', 'ReportListHandler');
+
     $r->addRoute('GET', '/auth', 'AuthHandler');
     $r->addRoute('GET', '/logout', 'LogoutHandler');
 
-    $r->addRoute('GET', '/queue', 'queueHandler');
+    $r->addRoute('GET', '/reports/queue', 'queueHandler');
+    $r->addRoute('POST', '/reports/queue/{idPost}/claim', 'ClaimHandler');
+    $r->addRoute('POST', '/reports/queue/{idPost}/complete', 'CompleteHandler');
 });
 
 $uri = $_SERVER['REQUEST_URI'];

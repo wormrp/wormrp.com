@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2022 Keira Dueck <sylae@calref.net>
  * Use of this source code is governed by the MIT license, which
@@ -7,23 +8,20 @@
 
 namespace Handler;
 
-class QueueHandler
+class ReportListHandler
 {
+
     public function respond(array $vars)
     {
-        global $config, $db; // i know
+        global $config;
 
         $loader = new \Twig\Loader\FilesystemLoader('tpl');
         $twig = new \Twig\Environment($loader, [
             'cache' => false,
         ]);
 
-        $queue = \QueueItem::getQueue();
-
         $vars['session'] = $_SESSION;
-        $vars['queue'] = $queue;
 
-        echo $twig->render("queue.twig", $vars);
-        // var_dump($queue->first());
+        echo $twig->render("reports.twig", $vars);
     }
 }

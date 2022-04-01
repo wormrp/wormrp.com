@@ -16,13 +16,13 @@
             <li><a href="https://www.reddit.com/r/wormrp">Reddit</a></li>
             <li><a href="https://discord.gg/KjYAwes">Discord</a></li>
             <li><a href="https://wiki.wormrp.com">Wiki</a></li>
+            <li><a href="/reports/">Reports & Information</a></li>
             <!-- <li><a href="/map.php">Map</a></li> -->
-            <!-- <li><a href="/reports/">Reports</a></li> -->
         </ul>
         <ul class="nav-items-user">
             {% if session.discordTag %}
                 <li>
-                    {{ session.discordTag }}
+                    {% if session.isStaff %}<span title="Staff">👑</span> {% endif %}{{ session.discordTag }}
                     <img src="https://cdn.discordapp.com/avatars/{{ session.discordID }}/{{ session.discordAv }}.png?size=32"
                          alt="Avatar" style="max-height: 1em;" />
                 </li>

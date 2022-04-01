@@ -23,12 +23,19 @@ main, footer {
     padding: 0 15px;
 }
 
-a {
-    text-decoration: none;
+a, .btn-link {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
     color: #5c5c5c;
+    padding: 0;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: inherit;
 }
 
-a:hover {
+a:hover, .btn-link:hover {
     color: #0c0c0c;
 }
 
@@ -244,4 +251,20 @@ table td {
     padding: 0.75em;
     vertical-align: top;
     border-top: 1px solid #ffbe47;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+tr.pending {
+    background-color: #f4cccc;
+}
+
+tr.claimed {
+    background-color: #fff2cc;
+}
+
+tr.approved {
+    background-color: #d9d2e9;
 }
