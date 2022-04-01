@@ -37,6 +37,8 @@ $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r)
     $r->addRoute('GET', '/reports/queue', 'queueHandler');
     $r->addRoute('POST', '/reports/queue/{idPost}/claim', 'ClaimHandler');
     $r->addRoute('POST', '/reports/queue/{idPost}/complete', 'CompleteHandler');
+
+    $r->addRoute('GET', '/reports/charcheck', 'WikiAuditHandler');
 });
 
 $uri = $_SERVER['REQUEST_URI'];
