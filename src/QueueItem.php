@@ -28,7 +28,9 @@ class QueueItem
     public static function getQueue(): Collection
     {
         global $db; // i know
-        $query = $db->executeQuery("select * from wormrp_queue order by approvalTime ASC, postTime ASC");
+        $query = $db->executeQuery(
+            "select * from wormrp_queue where approvalTime is null or postTime > now() - interval 1 month order by approvalTime ASC, postTime ASC"
+        );
         $c = new CharlotteDunois\Collect\Collection();
         while ($res = $query->fetchAssociative()) {
             $x = self::createFromDBrow($res);
