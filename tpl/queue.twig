@@ -24,7 +24,7 @@
                 <td><a href="{{ item.url }}">{{ item.title }}</a></td>
                 <td>{{ item.flair }}</td>
                 <td class="nowrap">
-                    {% if item.getState() == constant("STATE_APPROVED", item) %}Approved {{ item.approvalTime.toFormattedDateString() }}
+                    {% if item.getState() == constant("STATE_APPROVED", item) %}Completed {{ item.approvalTime.toFormattedDateString() }}
                         <br /><small><em>{{ item.approvalTime.longRelativeDiffForHumans(2) }}</em></small>
                     {% elseif item.getState() == constant("STATE_CLAIMED", item) %}Claimed {{ item.claimTime.toFormattedDateString() }}
                         <br />
