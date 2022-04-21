@@ -19,6 +19,8 @@ class BadMethodHandler
             'cache' => false,
         ]);
 
+        $vars['session'] = $_SESSION;
+
         echo $twig->render("405.twig", $vars);
     }
 }

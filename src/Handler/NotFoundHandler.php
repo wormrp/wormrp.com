@@ -19,6 +19,8 @@ class NotFoundHandler
             'cache' => false,
         ]);
 
+        $vars['session'] = $_SESSION;
+
         echo $twig->render("404.twig", $vars);
     }
 }
