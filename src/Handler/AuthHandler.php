@@ -15,12 +15,12 @@ class AuthHandler
 
     public function respond(array $vars)
     {
-        global $config, $db;
+        global $config, $db, $isTestMode;
 
         $provider = new \Wohali\OAuth2\Client\Provider\Discord([
             'clientId' => $config['clientId'],
             'clientSecret' => $config['clientSecret'],
-            'redirectUri' => 'https://wormrp.com/auth'
+            'redirectUri' => $isTestMode ? 'http://localhost:8000/auth' : 'https://wormrp.com/auth'
         ]);
 
         if (!isset($_GET['code'])) {
@@ -56,7 +56,7 @@ class AuthHandler
                     [ParameterType::INTEGER]
                 );
                 if ($query->rowCount() > 0) {
-                    if (in_array($query->fetchAssociative()['staffRole'], [456321111945248779])) { // todo: CCA check
+                    if (in_array($query->fetchAssociative()['staffRole'], [456321111945248779, 965849665411121192])) {
                         $_SESSION['isStaff'] = true;
                     }
                 } else {

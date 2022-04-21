@@ -11,11 +11,13 @@ require_once __DIR__ . '/config.php';
 session_start(['cookie_lifetime' => 86400 * 7]);
 date_default_timezone_set('UTC');
 
+$isTestMode = (PHP_OS == "WINNT");
+
 if (array_key_exists('wormrp.com/auth', $_SESSION)) {
     $provider = new \Wohali\OAuth2\Client\Provider\Discord([
         'clientId' => $config['clientId'],
         'clientSecret' => $config['clientSecret'],
-        'redirectUri' => 'https://wormrp.com/auth'
+        'redirectUri' => $isTestMode ? 'http://localhost:8000/auth' : 'https://wormrp.com/auth'
     ]);
 
     if ($_SESSION['wormrp.com/auth']->hasExpired()) {
