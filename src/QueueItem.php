@@ -137,4 +137,20 @@ class QueueItem
         $q->bindValue(1, $this->idPost, \Doctrine\DBAL\ParameterType::INTEGER);
         return (bool)$q->executeStatement();
     }
+
+    public function create(): bool
+    {
+        global $db;
+
+        $q = $db->prepare(
+            "insert into wormrp_queue (idPost, flair, author, url, title, postTime) values (?, ?, ?, ?, ?, ?)"
+        );
+        $q->bindValue(1, $this->idPost);
+        $q->bindValue(2, $this->flair);
+        $q->bindValue(3, $this->author);
+        $q->bindValue(4, $this->url);
+        $q->bindValue(5, $this->title);
+        $q->bindValue(6, $this->postTime);
+        return (bool)$q->executeStatement();
+    }
 }

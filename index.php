@@ -37,6 +37,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r)
     $r->addRoute('GET', '/logout', 'LogoutHandler');
 
     $r->addRoute('GET', '/reports/queue', 'QueueHandler');
+    $r->addRoute('POST', '/reports/queue/add', 'QueueManualAddHandler');
     $r->addRoute('POST', '/reports/queue/{idPost}/claim', 'ClaimHandler');
     $r->addRoute('POST', '/reports/queue/{idPost}/complete', 'CompleteHandler');
     $r->addRoute('POST', '/reports/queue/{idPost}/reset', 'ResetHandler');
