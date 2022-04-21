@@ -281,3 +281,26 @@ tr.approved {
 .breadcrumb li:not(:first-child)::before {
     content: " » ";
 }
+
+/* sortable table thing */
+.sortable th:hover::after {
+    color: inherit;
+    font-size: 1.2em;
+    content: ' \025B8';
+}
+
+.sortable th::after {
+    font-size: 1.2em;
+    color: transparent;
+    content: ' \025B8';
+}
+
+.sortable th.dir-d::after {
+    color: inherit;
+    content: ' \025BE';
+}
+
+.sortable th.dir-u::after {
+    color: inherit;
+    content: ' \025B4';
+}

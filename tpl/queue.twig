@@ -5,7 +5,7 @@
 {% block content %}
 
     <h1>WormRP Approval Queue</h1>
-    <table>
+    <table class="sortable">
         <thead>
         <tr>
             <th class="nowrap">Submission Time</th>
@@ -19,11 +19,12 @@
         <tbody>
         {% for item in queue %}
             <tr class="{{ item.getStateClass() }}">
-                <td class="nowrap">{{ item.postTime.toFormattedDateString() }}
+                <td class="nowrap" data-sort="{{ item.postTime.timestamp }}">{{ item.postTime.toFormattedDateString() }}
                     <br /><small><em>{{ item.postTime.longRelativeDiffForHumans(2) }}</em></small></td>
                 <td><a href="{{ item.url }}">{{ item.title }}</a></td>
                 <td>{{ item.flair }}</td>
-                <td class="nowrap">
+                <td class="nowrap"
+                    data-sort="{% if item.getState() == constant("STATE_APPROVED", item) %}{{ item.approvalTime.timestamp }}{% elseif item.getState() == constant("STATE_CLAIMED", item) %}{{ item.claimTime.timestamp }}{% else %}{{ constant("PHP_INT_MAX") }}{% endif %}">
                     {% if item.getState() == constant("STATE_APPROVED", item) %}Completed {{ item.approvalTime.toFormattedDateString() }}
                         <br /><small><em>{{ item.approvalTime.longRelativeDiffForHumans(2) }}</em></small>
                     {% elseif item.getState() == constant("STATE_CLAIMED", item) %}Claimed {{ item.claimTime.toFormattedDateString() }}
@@ -33,7 +34,8 @@
                     {% endif %}
                 </td>
                 <td><a href="https://www.reddit.com/user/{{ item.author }}">/u/{{ item.author }}</a></td>
-                <td class="nowrap">
+                <td class="nowrap"
+                    data-sort="{% if item.idApprover1 %}/u/{{ item.getRedditNameFromDiscord(item.idApprover1) }}{% else %}Unclaimed{% endif %}">
                     {% if item.idApprover1 %}/u/{{ item.getRedditNameFromDiscord(item.idApprover1) }}{% else %}Unclaimed{% endif %}
                     {% include 'postref.twig' %}
                 </td>
