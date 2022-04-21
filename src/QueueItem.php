@@ -29,7 +29,7 @@ class QueueItem
     {
         global $db; // i know
         $query = $db->executeQuery(
-            "select * from wormrp_queue where approvalTime is null or postTime > now() - interval 1 month order by approvalTime ASC, postTime ASC"
+            "select * from wormrp_queue where approvalTime is null or postTime > now() - interval 14 day order by approvalTime ASC, postTime ASC"
         );
         $c = new CharlotteDunois\Collect\Collection();
         while ($res = $query->fetchAssociative()) {
