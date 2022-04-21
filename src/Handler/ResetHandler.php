@@ -37,6 +37,7 @@ class ResetHandler
 
         // we have a valid queueitem and we're staff. reset and pass off to the QueueHandler
         $queueItem->reset();
+        header("Location: /reports/queue");
         $handler = new QueueHandler();
         $handler->respond($vars);
     }

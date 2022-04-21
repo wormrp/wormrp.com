@@ -37,6 +37,7 @@ class CompleteHandler
 
         // we have a valid queueitem and we're staff. claim and pass off to the QueueHandler
         $queueItem->complete();
+        header("Location: /reports/queue");
         $handler = new QueueHandler();
         $handler->respond($vars);
     }

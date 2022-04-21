@@ -37,6 +37,7 @@ class ClaimHandler
 
         // we have a valid queueitem and we're staff. claim and pass off to the QueueHandler
         $queueItem->claim($_SESSION['discordID']);
+        header("Location: /reports/queue");
         $handler = new QueueHandler();
         $handler->respond($vars);
     }
