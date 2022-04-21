@@ -44,13 +44,15 @@
         </tbody>
     </table>
 
-    <h2>Manually add an item</h2>
-    <form method="post" action="/reports/queue/add">
-        <label>
-            <input name="url" type="url" placeholder="Reddit URL" />
-        </label>
-        <input type="submit" />
+    {% if session.isStaff %}
+        <h2>Manually add an item</h2>
+        <form method="post" action="/reports/queue/add">
+            <label>
+                <input name="url" type="url" placeholder="Reddit URL" />
+            </label>
+            <input type="submit" />
 
-    </form>
+        </form>
+    {% endif %}
 
 {% endblock %}
