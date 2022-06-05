@@ -1,0 +1,20 @@
+{% extends "base.twig" %}
+
+{% block title %}Devilfish Map - WormRP{% endblock title %}
+
+{% block contentOuter %}
+
+    <div id="map" class="map"></div>
+    <script>
+        var map = L.map('map').setView([47.8193321375, -90.1783210995], 11.5);
+        L.tileLayer('https://cdn.syl.ae/wormrp/map/{z}/{x}/{y}.png', {
+            minZoom: 10,
+            maxZoom: 13,
+            tms: false,
+            attribution: 'Copyright © 2015-{{ "now"|date("Y") }} /r/WormRP contributors under <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a>.'
+        }).addTo(map);
+    </script>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

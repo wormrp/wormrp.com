@@ -4,59 +4,67 @@
     <title>{% block title %}WormRP{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link crossorigin="anonymous" media="all" rel="stylesheet" href="/base.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+          integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
     <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
 </head>
 
 <body>
-<nav class="navbar">
-    <div class="noChonk">
+{% block header %}
+    <nav class="navbar">
+        <div class="noChonk">
 			<span class="site-branding">
 				<a href="/">WormRP</a>
 			</span>
-        <ul class="nav-items-standard">
-            <li><a href="https://www.reddit.com/r/wormrp">Reddit</a></li>
-            <li><a href="https://discord.gg/KjYAwes">Discord</a></li>
-            <li><a href="https://wiki.wormrp.com">Wiki</a></li>
-            <li><a href="/reports/">Reports & Information</a></li>
-            <!-- <li><a href="/map.php">Map</a></li> -->
-        </ul>
-        <ul class="nav-items-user">
-            {% if session.discordTag %}
-                <li>
-                    {% if session.isStaff %}<span title="Staff">👑</span> {% endif %}{{ session.discordTag }}
-                    <img src="https://cdn.discordapp.com/avatars/{{ session.discordID }}/{{ session.discordAv }}.png?size=32"
-                         alt="Avatar" style="max-height: 1em;" />
-                </li>
-                <li><a href='/logout'>Log out</a></li>
-            {% else %}
-                <li><a href='/auth'>Log in</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-<main>
-    {% if breadcrumb is defined %}
-        <nav class="breadcrumb">
-            <ol>
-                {% for a, text in breadcrumb %}
-                    <li><a href="{{ a }}">{{ text }}</a></li>
-                {% endfor %}
-            </ol>
-        </nav>
-    {% endif %}
+            <ul class="nav-items-standard">
+                <li><a href="https://www.reddit.com/r/wormrp">Reddit</a></li>
+                <li><a href="https://discord.gg/KjYAwes">Discord</a></li>
+                <li><a href="https://wiki.wormrp.com">Wiki</a></li>
+                <li><a href="/reports/">Reports & Information</a></li>
+                <li><a href="/map">Map</a></li>
+            </ul>
+            <ul class="nav-items-user">
+                {% if session.discordTag %}
+                    <li>
+                        {% if session.isStaff %}<span title="Staff">👑</span> {% endif %}{{ session.discordTag }}
+                        <img src="https://cdn.discordapp.com/avatars/{{ session.discordID }}/{{ session.discordAv }}.png?size=32"
+                             alt="Avatar" style="max-height: 1em;" />
+                    </li>
+                    <li><a href='/logout'>Log out</a></li>
+                {% else %}
+                    <li><a href='/auth'>Log in</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block contentOuter %}
+    <main>
+        {% if breadcrumb is defined %}
+            <nav class="breadcrumb">
+                <ol>
+                    {% for a, text in breadcrumb %}
+                        <li><a href="{{ a }}">{{ text }}</a></li>
+                    {% endfor %}
+                </ol>
+            </nav>
+        {% endif %}
 
-    {% block content %}{% endblock content %}
-
-    <hr />
-</main>
-
-<footer>
-    <p><small>Copyright © 2015-{{ "now"|date("Y") }} /r/WormRP contributors.<br />
-            Content is available under <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
-                Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</a> unless otherwise
-            noted.</small></p>
-</footer>
-
+        {% block content %}{% endblock content %}
+    </main>
+{% endblock %}
+{% block footer %}
+    <footer>
+        <p><small>Copyright © 2015-{{ "now"|date("Y") }} /r/WormRP contributors.<br />
+                Content is available under <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
+                    Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</a> unless otherwise
+                noted.</small></p>
+    </footer>
+{% endblock %}
 </body>
 
 </html>

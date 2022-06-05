@@ -8,19 +8,27 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-body {
+body, html {
     font-family: "Atkinson Hyperlegible", sans-serif;
     margin: 0;
     background-color: #e1e2e1;
     font-weight: 400;
     line-height: 1.45;
     color: #333;
+    font-size: 1em;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
 }
 
 main, footer {
     max-width: 1170px;
-    margin: 0 auto;
     padding: 0 15px;
+    margin: 2rem auto 0;
+}
+
+.map {
+    flex-grow: 1;
 }
 
 a, .btn-link {
@@ -37,10 +45,6 @@ a, .btn-link {
 
 a:hover, .btn-link:hover {
     color: #0c0c0c;
-}
-
-html {
-    font-size: 1em;
 }
 
 p {
@@ -79,7 +83,6 @@ nav.navbar {
     background-color: #0c0c0c;
     color: #ffbe47;
     padding: 0.1em 1rem;
-    margin-bottom: 2rem;
 }
 
 nav.navbar .noChonk {
