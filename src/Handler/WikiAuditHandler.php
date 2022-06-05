@@ -94,9 +94,6 @@ class WikiAuditHandler
         $vars['missingClass'] = $this->missingClass();
         $vars['staleWikiPages'] = $this->staleWikiPages();
 
-        var_dump($vars);
-
-
         echo $twig->render("wikiAudit.twig", $vars);
     }
 
