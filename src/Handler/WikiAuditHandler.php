@@ -22,7 +22,12 @@ class WikiAuditHandler
         global $db; // i know
 
         $qb = $db->createQueryBuilder();
-        $qb->select("*")->from("wormrp_activity");
+        $qb->select("*")->from("wormrp_activity", 'a')->innerJoin(
+            'a',
+            'wormrp_users',
+            'u',
+            'a.redditName = u.redditName'
+        );
         $this->users = new Collection();
 
         foreach ($qb->fetchAllAssociative() as $v) {

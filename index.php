@@ -45,6 +45,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r)
     $r->addRoute('POST', '/reports/queue/{idPost}/reset', 'ResetHandler');
 
     $r->addRoute('GET', '/reports/charcheck', 'WikiAuditHandler');
+    $r->addRoute('GET', '/reports/monthly', 'MonthlyAccountingHandler');
 });
 
 $uri = $_SERVER['REQUEST_URI'];
