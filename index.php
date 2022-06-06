@@ -46,6 +46,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r)
 
     $r->addRoute('GET', '/reports/charcheck', 'WikiAuditHandler');
     $r->addRoute('GET', '/reports/monthly', 'MonthlyAccountingHandler');
+    $r->addRoute('GET', '/reports/wikiwizard', 'WikiWizardHandler');
 });
 
 $uri = $_SERVER['REQUEST_URI'];
