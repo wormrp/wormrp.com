@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}WormRP{% endblock title %}</title>
+    <title>{% if block("title") is defined %}{{ block("title") }} - WormRP{% else %}WormRP{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link crossorigin="anonymous" media="all" rel="stylesheet" href="/base.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -12,7 +12,8 @@
             crossorigin=""></script>
     <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
     <meta property="og:site_name" content="wormrp.com" />
-    <meta property="og:title" content="{{ block("title") }}" />
+    <meta property="og:title"
+          content="{% if block("title") is defined %}{{ block("title") }}{% else %}WormRP{% endif %}" />
     {% if block("description") is defined %}
         <meta property="og:description" content="{{ block("description") }}" />
     {% endif %}
