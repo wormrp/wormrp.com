@@ -11,6 +11,13 @@
             integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
             crossorigin=""></script>
     <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
+    <meta property="og:site_name" content="wormrp.com" />
+    <meta property="og:title" content="{{ block("title") }}" />
+    {% if block("description") is defined %}
+        <meta property="og:description" content="{{ block("description") }}" />
+    {% endif %}
+    <meta property="og:image" content="/logo.png" />
+    <meta name="theme-color" content="#ffbe47" />
 </head>
 
 <body>
