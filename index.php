@@ -8,10 +8,25 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.php';
 
-session_start(['cookie_lifetime' => 86400 * 7]);
 date_default_timezone_set('UTC');
 
 $isTestMode = (PHP_OS == "WINNT");
+$db = \Doctrine\DBAL\DriverManager::getConnection(['url' => $config['db']], new \Doctrine\DBAL\Configuration());
+
+$sessionHandler = new \Doctrine\DBAL\DBALSessionHandler($db);
+$sessionHandler->setSessionTable("wormrp_http_sessions");
+$sessionHandler->setUserIDHandler(function () {
+    return $_SESSION['discordID'] ?? null;
+});
+session_set_save_handler($sessionHandler, true);
+session_start([
+    'cookie_lifetime' => 86400 * 7,
+    'gc_maxlifetime' => 86400 * 7,
+    'use_strict_mode' => true,
+    'cookie_secure' => !$isTestMode,
+    'cookie_samesite' => 'Lax',
+    'lazy_write' => false,
+]);
 
 if (array_key_exists('wormrp.com/auth', $_SESSION)) {
     $provider = new \Wohali\OAuth2\Client\Provider\Discord([
@@ -27,7 +42,6 @@ if (array_key_exists('wormrp.com/auth', $_SESSION)) {
     }
 }
 
-$db = \Doctrine\DBAL\DriverManager::getConnection(['url' => $config['db']], new \Doctrine\DBAL\Configuration());
 
 $dispatcher = FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', 'HomepageHandler');
