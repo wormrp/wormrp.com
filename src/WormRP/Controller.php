@@ -7,6 +7,7 @@
 
 namespace WormRP;
 
+use Nin\Nin;
 use Twig\Environment;
 
 class Controller extends \Nin\Controller
@@ -28,6 +29,7 @@ class Controller extends \Nin\Controller
 
     public function render($view, $options = [])
     {
+        $this->twig->addGlobal("user", Nin::user());
         echo $this->twig->render($view . ".twig", $options);
     }
 

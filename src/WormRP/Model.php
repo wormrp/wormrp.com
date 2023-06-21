@@ -9,5 +9,4 @@ namespace WormRP;
 
 class Model extends \Nin\Model
 {
-
 }

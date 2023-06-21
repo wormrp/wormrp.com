@@ -34,13 +34,12 @@
                 </div>
 
                 <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-link">
-                                Log in
-                            </a>
-                        </div>
-                    </div>
+                    {% if user %}
+                        <a class="navbar-item" href="/user">Account</a>
+                        <a class="navbar-item" href="/logout">Log out</a>
+                    {% else %}
+                        <a class="navbar-item" href="/login">Log in</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
