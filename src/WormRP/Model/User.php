@@ -20,4 +20,19 @@ class User extends \Nin\Model
     {
         return 'idUser';
     }
+
+    public function getAvatarURL(): string
+    {
+        if (is_null($this->avatar)) {
+            return $this->getDefaultAvatarURL();
+        }
+        $extension = str_starts_with($this->avatar, "a_") ? "gif" : "png";
+        return sprintf("https://cdn.discordapp.com/avatars/%s/%s.%s", $this->idUser, $this->avatar, $extension);
+    }
+
+    private function getDefaultAvatarURL(): string
+    {
+        return sprintf("https://cdn.discordapp.com/embed/avatars/%s.png", ($this->idUser >> 22) % 6);
+
+    }
 }
