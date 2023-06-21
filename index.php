@@ -14,12 +14,5 @@ namespace WormRP {
 
     nf_route("/", "WormRP\IndexController.Index");
 
-    nf_begin([
-        'name' => 'WormRP',
-
-        'debug' => php_sapi_name() == 'cli-server',
-
-        'params' => [
-        ],
-    ]);
+    nf_begin(require_once 'config.php');
 }
