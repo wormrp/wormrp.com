@@ -35,6 +35,12 @@ class UserController extends Controller
         $this->redirect($this->oauth->getRedirect());
     }
 
+    public function actionLogout()
+    {
+        Nin::unsetuid();
+        $this->redirect('/');
+    }
+
     public function actionAuth($state, $code)
     {
         if ($state != Nin::getSession('oauth2state')) {

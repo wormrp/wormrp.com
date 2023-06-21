@@ -21,7 +21,7 @@
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
                     <img src="/img/logo.png"/>
-                    <span style="padding-left: 0.5em;">WormRP</span>
+                    <span style="padding-left: 0.5em;"><strong>WormRP</strong></span>
                 </a>
             </div>
 
@@ -39,7 +39,7 @@
                             <figure class="image is-24x24">
                                 <img class="is-rounded" src="{{ user.getAvatarURL() }}" alt=""/>
                             </figure>
-                            Account
+                            {{ user.displayName }}
                         </a>
                         <a class="navbar-item" href="/logout">Log out</a>
                     {% else %}

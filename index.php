@@ -14,6 +14,7 @@ namespace WormRP {
 
     nf_route("/", "WormRP\IndexController.Index");
     nf_route("/login", "WormRP\UserController.Login");
+    nf_route("/logout", "WormRP\UserController.Logout");
     nf_route("/auth", "WormRP\UserController.Auth");
 
     nf_begin(require_once 'config.php');
