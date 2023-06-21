@@ -1,3 +1,5 @@
 /vendor/
 /.idea/
 config.php
+*.css
+*.map
