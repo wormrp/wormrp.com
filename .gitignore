@@ -1,5 +1,5 @@
 /vendor/
 /.idea/
 config.php
-*.css
-*.map
+/css/*.css
+/css/*.css.map
