@@ -3,77 +3,75 @@
 <head>
     <title>{% if block("title") is defined %}{{ block("title") }} - WormRP{% else %}WormRP{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link crossorigin="anonymous" media="all" rel="stylesheet" href="/css/wormrp.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-          integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-          crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-            crossorigin=""></script>
-    <script src="https://tofsjonas.github.io/sortable/sortable.js"></script>
-    <meta property="og:site_name" content="wormrp.com" />
+    <link crossorigin="anonymous" media="all" rel="stylesheet" href="/css/wormrp.css"/>
+    <meta property="og:site_name" content="wormrp.com"/>
     <meta property="og:title"
-          content="{% if block("title") is defined %}{{ block("title") }}{% else %}WormRP{% endif %}" />
+          content="{% if block("title") is defined %}{{ block("title") }}{% else %}WormRP{% endif %}"/>
     {% if block("description") is defined %}
-        <meta property="og:description" content="{{ block("description") }}" />
+        <meta property="og:description" content="{{ block("description") }}"/>
     {% endif %}
-    <meta property="og:image" content="/logo.png" />
-    <meta name="theme-color" content="#ffbe47" />
+    <meta property="og:image" content="/logo.png"/>
+    <meta name="theme-color" content="#ffbe47"/>
 </head>
 
 <body>
 {% block header %}
-    <nav class="navbar">
-        <div class="noChonk">
-			<span class="site-branding">
-				<a href="/">WormRP</a>
-			</span>
-            <ul class="nav-items-standard">
-                <li><a href="https://www.reddit.com/r/wormrp">Reddit</a></li>
-                <li><a href="https://discord.gg/KjYAwes">Discord</a></li>
-                <li><a href="https://wiki.wormrp.com">Wiki</a></li>
-                <li><a href="/reports/">Reports & Information</a></li>
-                <li><a href="/map">Map</a></li>
-            </ul>
-            <ul class="nav-items-user">
-                {% if session.discordTag %}
-                    <li>
-                        {% if session.isStaff %}<span title="Staff">👑</span> {% endif %}{{ session.discordTag }}
-                        <img src="https://cdn.discordapp.com/avatars/{{ session.discordID }}/{{ session.discordAv }}.png?size=32"
-                             alt="Avatar" style="max-height: 1em;" />
-                    </li>
-                    <li><a href='/logout'>Log out</a></li>
-                {% else %}
-                    <li><a href='/auth'>Log in</a></li>
-                {% endif %}
-            </ul>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="/img/logo.png"/>
+                    <span style="padding-left: 0.5em;">WormRP</span>
+                </a>
+            </div>
+
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="/characters">Characters</a>
+                    <a class="navbar-item" href="/threads">Threads</a>
+                    <a class="navbar-item" href="https://discord.gg/KjYAwes" target="_blank">Discord</a>
+                    <a class="navbar-item" href="https://wiki.wormrp.com" target="_blank">Wiki</a>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-link">
+                                Log in
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 {% endblock %}
 {% block contentOuter %}
-    <main>
+    <div class="container">
         {% if breadcrumb is defined %}
-            <nav class="breadcrumb">
-                <ol>
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ul>
                     {% for a, text in breadcrumb %}
                         <li><a href="{{ a }}">{{ text }}</a></li>
                     {% endfor %}
-                </ol>
+                </ul>
             </nav>
         {% endif %}
 
         {% block content %}{% endblock content %}
-    </main>
+    </div>
 {% endblock %}
 {% block footer %}
-    <footer>
-        <p><small>Copyright © 2015-{{ "now"|date("Y") }} /r/WormRP contributors.<br />
-                Content is available under <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
-                    Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</a> unless otherwise
-                noted.<br />
-                <a href="https://maidtech.net/" target="_blank">Offset hosting costs</a></small></p>
-    </footer>
+    <div class="container">
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>Copyright © 2015-{{ "now"|date("Y") }} WormRP contributors. Content is available under
+                    <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+                    unless otherwise noted.</p>
+                <p><a href="https://maidtech.net/" target="_blank">Offset hosting costs</a></p>
+            </div>
+        </footer>
+    </div>
 {% endblock %}
 </body>
-
 </html>
