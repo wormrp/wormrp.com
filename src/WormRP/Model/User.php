@@ -7,10 +7,19 @@
 
 namespace WormRP\Model;
 
+use Carbon\Carbon;
+
+/**
+ * @property int $idUser
+ * @property string $username
+ * @property ?string $displayName
+ * @property ?string $avatar
+ * @property ?string $banner
+ * @property Carbon $dateCreated
+ * @property Carbon $dateUpdated
+ */
 class User extends \Nin\Model
 {
-
-
     public static function tablename()
     {
         return 'users';

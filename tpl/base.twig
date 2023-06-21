@@ -37,7 +37,8 @@
                     {% if user %}
                         <a class="navbar-item" href="/user">
                             <figure class="image is-24x24">
-                                <img class="is-rounded" src="{{ user.getAvatarURL() }}" alt=""/>
+                                <img class="is-rounded" src="{{ user.getAvatarURL() }}" alt="User avatar"
+                                     referrerpolicy="no-referrer"/>
                             </figure>
                             {{ user.displayName }}
                         </a>
