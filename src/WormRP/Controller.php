@@ -14,6 +14,8 @@ class Controller extends \Nin\Controller
 {
     public Environment $twig;
 
+    public array $breadcrumb = [];
+
     public function __construct()
     {
         $loader = new \Twig\Loader\FilesystemLoader('tpl');
@@ -30,7 +32,16 @@ class Controller extends \Nin\Controller
     public function render($view, $options = [])
     {
         $this->twig->addGlobal("user", Nin::user());
+        if (count($this->breadcrumb) > 0) {
+            $this->twig->addGlobal("breadcrumb", array_merge([["text" => "WormRP", "a" => "/"]], $this->breadcrumb));
+        }
         echo $this->twig->render($view . ".twig", $options);
     }
+
+    public function addBreadcrumb(string $title, string $url): void
+    {
+        $this->breadcrumb[] = ["text" => $title, "a" => $url];
+    }
+
 
 }

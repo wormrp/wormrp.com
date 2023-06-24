@@ -53,17 +53,22 @@
 {% endblock %}
 {% block contentOuter %}
     <div class="container">
-        {% if breadcrumb is defined %}
-            <nav class="breadcrumb" aria-label="breadcrumbs">
-                <ul>
-                    {% for a, text in breadcrumb %}
-                        <li><a href="{{ a }}">{{ text }}</a></li>
-                    {% endfor %}
-                </ul>
-            </nav>
-        {% endif %}
+        <div class="section">
+            {% if block("title") is defined %}
+                <h2 class="title">{{ block("title") }}</h2>
+            {% endif %}
+            {% if breadcrumb is defined %}
+                <nav class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        {% for x in breadcrumb %}
+                            <li><a href="{{ x.a }}">{{ x.text }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            {% endif %}
 
-        {% block content %}{% endblock content %}
+            {% block content %}{% endblock content %}
+        </div>
     </div>
 {% endblock %}
 {% block footer %}
