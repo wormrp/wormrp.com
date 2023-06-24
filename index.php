@@ -17,5 +17,25 @@ namespace WormRP {
     nf_route("/logout", "WormRP\UserController.Logout");
     nf_route("/auth", "WormRP\UserController.Auth");
 
-    nf_begin(require_once 'config.php');
+    $defaultConfig = [
+        'name' => 'WormRP',
+        'debug' => php_sapi_name() == 'cli-server',
+        'routing' => [
+            'preferRules' => false,
+            'rules' => [
+                '/^\\/(?<path>[a-z0-9\\-_\\/]+)$/' => "WormRP\ErrorController.404",
+            ],
+        ],
+        'cache' => [
+            'class' => 'APCu',
+            'options' => [
+                'prefix' => 'wormrp_',
+            ],
+        ],
+        'user' => [
+            'model' => 'WormRP\Model\User'
+        ],
+    ];
+
+    nf_begin(array_merge($defaultConfig, require_once 'config.php'));
 }
