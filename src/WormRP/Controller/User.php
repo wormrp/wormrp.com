@@ -5,12 +5,13 @@
  * can be found in the LICENSE file.
  */
 
-namespace WormRP;
+namespace WormRP\Controller;
 
 use Nin\Nin;
-use WormRP\Model\User;
+use WormRP\Controller;
+use WormRP\OAuth;
 
-class UserController extends Controller
+class User extends Controller
 {
     protected OAuth $oauth;
 
@@ -74,7 +75,7 @@ class UserController extends Controller
 
             $resp = $this->oauth->provider->getResourceOwner($token)->toArray();
 
-            $user = User::findByAttributes(array('idUser' => $resp['id']));
+            $user = \WormRP\Model\User::findByAttributes(array('idUser' => $resp['id']));
 
             if (!$user) {
                 $user = new User();

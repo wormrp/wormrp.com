@@ -5,9 +5,11 @@
  * can be found in the LICENSE file.
  */
 
-namespace WormRP;
+namespace WormRP\Controller;
 
-class ErrorController extends Controller
+use WormRP\Controller;
+
+class Error extends Controller
 {
     public function action404()
     {

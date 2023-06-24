@@ -5,9 +5,11 @@
  * can be found in the LICENSE file.
  */
 
-namespace WormRP;
+namespace WormRP\Controller;
 
-class IndexController extends Controller
+use WormRP\Controller;
+
+class Index extends Controller
 {
     public function actionIndex()
     {

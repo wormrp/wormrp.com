@@ -12,10 +12,10 @@ namespace WormRP {
 
     date_default_timezone_set('UTC');
 
-    nf_route("/", "WormRP\IndexController.Index");
-    nf_route("/login", "WormRP\UserController.Login");
-    nf_route("/logout", "WormRP\UserController.Logout");
-    nf_route("/auth", "WormRP\UserController.Auth");
+    nf_route("/", "WormRP\Controller\Index.Index");
+    nf_route("/login", "WormRP\Controller\User.Login");
+    nf_route("/logout", "WormRP\Controller\User.Logout");
+    nf_route("/auth", "WormRP\Controller\User.Auth");
 
     $defaultConfig = [
         'name' => 'WormRP',
@@ -23,7 +23,7 @@ namespace WormRP {
         'routing' => [
             'preferRules' => false,
             'rules' => [
-                '/^\\/(?<path>[a-z0-9\\-_\\/]+)$/' => "WormRP\ErrorController.404",
+                '/^\\/(?<path>[a-z0-9\\-_\\/]+)$/' => "WormRP\Controller\Error.404",
             ],
         ],
         'cache' => [
