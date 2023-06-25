@@ -3,7 +3,7 @@
 <head>
     <title>{% if block("title") is defined %}{{ block("title") }} - WormRP{% else %}WormRP{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link crossorigin="anonymous" media="all" rel="stylesheet" href="/css/wormrp.css"/>
+    <link media="all" rel="stylesheet" href="/css/wormrp.css"/>
     <meta property="og:site_name" content="wormrp.com"/>
     <meta property="og:title"
           content="{% if block("title") is defined %}{{ block("title") }}{% else %}WormRP{% endif %}"/>
@@ -12,6 +12,10 @@
     {% endif %}
     <meta property="og:image" content="/img/logo.png"/>
     <meta name="theme-color" content="#ffbe47"/>
+    <script>
+        /*to prevent Firefox FOUC, this must be here*/
+        let FF_FOUC_FIX;
+    </script>
 </head>
 
 <body>
@@ -19,9 +23,15 @@
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <img src="/img/logo.png" alt="WormRP logo"/>
-                    <span style="padding-left: 0.5em;"><strong>WormRP</strong></span>
+                <a href="/" class="navbar-item">
+                    <span class="icon-text">
+                        <span class="icon">
+                            <figure class="image">
+                                <img src="/img/logo.png" alt="WormRP logo"/>
+                            </figure>
+                        </span>
+                        <span class="pl-2"><strong>WormRP</strong></span>
+                    </span>
                 </a>
             </div>
 
