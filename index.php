@@ -13,9 +13,13 @@ namespace WormRP {
     date_default_timezone_set('UTC');
 
     nf_route("/", "WormRP\Controller\Index.Index");
+
     nf_route("/login", "WormRP\Controller\User.Login");
     nf_route("/logout", "WormRP\Controller\User.Logout");
     nf_route("/auth", "WormRP\Controller\User.Auth");
+
+    nf_route("/threads", "WormRP\Controller\Threads.Index");
+    nf_route("/threads/search", "WormRP\Controller\Threads.Search");
 
     $defaultConfig = [
         'name' => 'WormRP',
