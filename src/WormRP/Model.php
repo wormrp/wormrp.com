@@ -25,10 +25,8 @@ class Model extends \Nin\Model
     {
         // Test relations
         $relations = $this->relations();
-        foreach ($relations as $k => $v) {
-            if ($name == $k) {
-                return true;
-            }
+        if (array_key_exists($name, $relations)) {
+            return true;
         }
 
         // Test getters
