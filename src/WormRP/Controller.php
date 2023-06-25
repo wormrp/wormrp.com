@@ -32,6 +32,7 @@ class Controller extends \Nin\Controller
     public function render($view, $options = [])
     {
         $this->twig->addGlobal("user", Nin::user());
+        $this->twig->addGlobal("csrf", Nin::getSession("csrf_token"));
         if (count($this->breadcrumb) > 0) {
             $this->twig->addGlobal("breadcrumb", array_merge([["text" => "WormRP", "a" => "/"]], $this->breadcrumb));
         }

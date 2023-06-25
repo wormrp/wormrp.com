@@ -1,0 +1,54 @@
+{% extends "base.twig" %}
+
+{% block title %}Create thread{% endblock title %}
+
+{% block content %}
+    {% if user %}
+        <form method="post">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="title">Title</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" name="title" id="title">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="tag">Tag</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-narrow">
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="tag" id="tag">
+                                    {% for x in allowed_tags %}
+                                        <option>{{ x }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label"></div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="button is-primary" type="submit" value="Create thread">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}

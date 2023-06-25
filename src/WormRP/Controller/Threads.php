@@ -8,6 +8,7 @@
 namespace WormRP\Controller;
 
 use Nin\ListViews\ModelListView;
+use Nin\Nin;
 
 class Threads extends \WormRP\Controller
 {
@@ -49,5 +50,41 @@ class Threads extends \WormRP\Controller
             ->where('title', '%' . $search . '%', 'LIKE')
             ->orderby('dateUpdated', 'DESC')
         );
+    }
+
+    public function actionNew()
+    {
+        if (!Nin::user()) { // how did you get here
+            $this->redirect("/login");
+            return;
+        }
+
+        $this->addBreadcrumb("Create thread", "/threads/new");
+
+        if (isset($_POST['csrf'])) {
+            if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
+                $this->displayError('Invalid token.');
+                return;
+            }
+            $title = trim($_POST['title']);
+            $tag = trim($_POST['tag']);
+
+            if (mb_strlen($title) == 0 || !in_array($tag, \WormRP\Model\Thread::ALLOWED_TAGS)) {
+                $this->displayError("Invalid thread format, please try again", 400);
+                return;
+            }
+
+            $thread = new \WormRP\Model\Thread();
+            $thread->title = $title;
+            $thread->tag = $tag;
+            $thread->idCreator = Nin::uid();
+            $thread->save();
+
+            $this->redirect("/thread/" . $thread->idThread);
+        } else {
+            $this->render("threads.new", [
+                'allowed_tags' => \WormRP\Model\Thread::ALLOWED_TAGS
+            ]);
+        }
     }
 }

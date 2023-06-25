@@ -20,6 +20,7 @@ namespace WormRP {
 
     nf_route("/threads", "WormRP\Controller\Threads.Index");
     nf_route("/threads/search", "WormRP\Controller\Threads.Search");
+    nf_route("/threads/new", "WormRP\Controller\Threads.New");
 
     $defaultConfig = [
         'name' => 'WormRP',

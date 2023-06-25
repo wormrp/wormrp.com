@@ -1,0 +1,11 @@
+<tr>
+    <td>
+        <span class="tag">{{ item.tag }}</span>
+        <a href="/thread/{{ item.idThread }}">{{ item.title }}</a>
+    </td>
+    <td>{{ include('userAvInline.twig', {user: item.creator}) }}</td>
+    <td class="nowrap">
+        <span title="{{ item.dateCreated.toCookieString() }}">{{ item.dateCreated.diffForHumans() }}</span>
+    </td>
+    <td class="nowrap">lastpost</td>
+</tr>

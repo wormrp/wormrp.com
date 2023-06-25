@@ -11,6 +11,15 @@ use Carbon\Carbon;
 
 class Model extends \Nin\Model
 {
+
+    /**
+     * hacky shitshow to get twig to play nice with nin (__isset() didnt work)
+     */
+    public function __call(string $name, array $arguments)
+    {
+        return $this->__get($name);
+    }
+
     public function __get($name)
     {
         if (in_array($name, ['dateCreated', 'dateUpdated'])) {

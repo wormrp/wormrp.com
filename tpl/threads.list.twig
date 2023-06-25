@@ -28,18 +28,13 @@
         <thead>
         <tr>
             <th>Title</th>
-            <th>Created</th>
-            <th>Last Post</th>
+            <th>Members</th>
+            <th class="is-narrow">Created</th>
+            <th class="is-narrow">Last Post</th>
         </tr>
         </thead>
         <tbody>
-        {% for t in threads %}
-            <tr>
-                <td>{{ t.title }}</td>
-                <td>time<br/>by {{ t.creator.displayName }}</td>
-                <td>lastpost</td>
-            </tr>
-        {% endfor %}
+        {{ threads.renderItems("threads.item") }}
         </tbody>
     </table>
 {% endblock %}

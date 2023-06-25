@@ -16,9 +16,19 @@ use Carbon\Carbon;
  * @property string $title
  * @property Carbon $dateCreated
  * @property Carbon $dateUpdated
+ * @property User $creator
+ * @property string $tag
  */
 class Thread extends \WormRP\Model
 {
+    public const ALLOWED_TAGS = [
+        'Event',
+        'Patrol',
+        'A-Class',
+        'S-Class',
+        'Noncanon'
+    ];
+
     public static function tablename()
     {
         return 'threads';
@@ -32,7 +42,7 @@ class Thread extends \WormRP\Model
     public function relations()
     {
         return [
-            'creator' => [BELONGS_TO, 'User', 'idCreator'],
+            'creator' => [BELONGS_TO, "WormRP\Model\User", 'idCreator'],
         ];
     }
 }
