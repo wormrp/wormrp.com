@@ -12,14 +12,6 @@ use Carbon\Carbon;
 class Model extends \Nin\Model
 {
 
-    /**
-     * hacky shitshow to get twig to play nice with nin (__isset() didnt work)
-     */
-    public function __call(string $name, array $arguments)
-    {
-        return $this->__get($name);
-    }
-
     public function __get($name)
     {
         if (in_array($name, ['dateCreated', 'dateUpdated'])) {
@@ -27,5 +19,30 @@ class Model extends \Nin\Model
         } else {
             return parent::__get($name);
         }
+    }
+
+    public function __isset($name)
+    {
+        // Test relations
+        $relations = $this->relations();
+        foreach ($relations as $k => $v) {
+            if ($name == $k) {
+                return true;
+            }
+        }
+
+        // Test getters
+        $functionname = 'get' . ucfirst($name);
+        if (method_exists($this, $functionname)) {
+            return true;
+        }
+
+        // Test columns
+        if (isset($this->_data[$name])) {
+            return true;
+        }
+
+        // Nothing found
+        return false;
     }
 }
