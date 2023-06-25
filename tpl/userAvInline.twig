@@ -1,9 +1,11 @@
-<span class="icon-text">
+<a href="/user/{{ user.username }}" {% if classes is defined %} class="{{ classes }}" {% endif %}>
+  <span class="icon-text">
   <span class="icon">
     <figure class="image">
     <img class="is-rounded" src="{{ user.getAvatarURL() }}" alt="User avatar"
          referrerpolicy="no-referrer"/>
     </figure>
   </span>
-  <span><a href="/user/{{ user.username }}">{{ user.displayName }}</a></span>
+  <span>{{ user.displayName }}</span>
 </span>
+</a>

@@ -35,13 +35,7 @@
 
                 <div class="navbar-end">
                     {% if user %}
-                        <a class="navbar-item" href="/user">
-                            <figure class="image is-24x24">
-                                <img class="is-rounded" src="{{ user.getAvatarURL() }}" alt="User avatar"
-                                     referrerpolicy="no-referrer"/>
-                            </figure>
-                            {{ user.displayName }}
-                        </a>
+                        {{ include('userAvInline.twig', {user: user, classes: "navbar-item"}) }}
                         <a class="navbar-item" href="/logout">Log out</a>
                     {% else %}
                         <a class="navbar-item" href="/login">Log in</a>
