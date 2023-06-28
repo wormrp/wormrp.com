@@ -58,6 +58,4 @@ namespace WormRP {
     ]);
 
     nf_begin($cfg);
-
-    var_dump(session_id());
 }
