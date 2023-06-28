@@ -46,7 +46,6 @@ class DatabaseSessionHandler implements
         $m->ip = $this->getIP();
         $m->userAgent = $this->getUserAgent();
         $m->idUser = $this->getUserID() ?? 0;
-        var_dump($m);
         return $m->save();
     }
 
