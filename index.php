@@ -42,5 +42,22 @@ namespace WormRP {
         ],
     ];
 
-    nf_begin(array_merge($defaultConfig, require_once 'config.php'));
+    $cfg = array_merge($defaultConfig, require_once 'config.php');
+    nf_config_initialize($cfg);
+    nf_db_initialize();
+
+    session_set_save_handler(new DatabaseSessionHandler(), true);
+    session_start([
+        'name' => 'wormrp_session',
+        'cookie_lifetime' => 86400 * 7,
+        'gc_maxlifetime' => 86400 * 7,
+        'use_strict_mode' => true,
+        'cookie_secure' => php_sapi_name() != 'cli-server',
+        'cookie_samesite' => 'Lax',
+        'lazy_write' => false,
+    ]);
+
+    nf_begin($cfg);
+
+    var_dump(session_id());
 }

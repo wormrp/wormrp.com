@@ -30,6 +30,13 @@ class User extends \Nin\Model
         return 'idUser';
     }
 
+    public function relations()
+    {
+        return [
+            'sessions' => [HAS_MANY, "WormRP\Model\DbSession", 'idUser'],
+        ];
+    }
+
     public function getAvatarURL(): string
     {
         if (is_null($this->avatar)) {
