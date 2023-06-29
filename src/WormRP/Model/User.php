@@ -21,7 +21,7 @@ use Carbon\Carbon;
  * @property DbSession[] $sessions
  * @property Character[] $characters
  */
-class User extends \Nin\Model
+class User extends \WormRP\Model
 {
     public static function tablename()
     {
