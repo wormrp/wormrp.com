@@ -17,6 +17,9 @@ use Carbon\Carbon;
  * @property ?string $banner
  * @property Carbon $dateCreated
  * @property Carbon $dateUpdated
+ *
+ * @property DbSession[] $sessions
+ * @property Character[] $characters
  */
 class User extends \Nin\Model
 {
@@ -34,6 +37,7 @@ class User extends \Nin\Model
     {
         return [
             'sessions' => [HAS_MANY, "WormRP\Model\DbSession", 'idUser'],
+            'characters' => [HAS_MANY, "WormRP\Model\Character", 'idAuthor']
         ];
     }
 

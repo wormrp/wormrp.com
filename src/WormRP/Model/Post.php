@@ -21,6 +21,7 @@ use Carbon\Carbon;
  * @property User $author
  * @property self $parent
  * @property Thread $thread
+ * @property Character $character
  */
 class Post extends \WormRP\Model
 {
