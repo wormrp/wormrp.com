@@ -9,7 +9,7 @@ namespace WormRP\Controller;
 
 class Thread extends \WormRP\Controller
 {
-    private \WormRP\Model\Thread $thread;
+    private \WormRP\Model\Thread|bool $thread = false;
 
     function __construct($idThread)
     {
@@ -21,10 +21,20 @@ class Thread extends \WormRP\Controller
 
     public function beforeAction($action)
     {
-        if (!isset($this->thread)) {
+        if (!$this->thread) {
             $this->displayError('Thread not found.', 404);
             return false;
         }
         return $action;
+    }
+
+    public function actionView()
+    {
+        $this->addBreadcrumb("Threads", "/threads");
+        $this->addBreadcrumb("Viewing thread", "/thread/" . $this->thread->idThread);
+
+        $this->render('thread.view', array(
+            'thread' => $this->thread,
+        ));
     }
 }

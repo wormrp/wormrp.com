@@ -1,0 +1,30 @@
+<form method="post">
+    <div class="field">
+        <label class="label" for="character">Character</label>
+        <div class="control">
+            <div class="select">
+                <select name="character" id="character">
+                    <option value="">(none)</option>
+                    {% for char in user.characters %}
+                        {% if char.status == constant("CHAR_APPROVED", char) %}
+                            <option value="{{ char.idCharacter }}">{{ char.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="post">Post</label>
+        <div class="control">
+            <textarea class="textarea" name="post" id="post"></textarea>
+        </div>
+    </div>
+
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Submit</button>
+        </div>
+    </div>
+</form>

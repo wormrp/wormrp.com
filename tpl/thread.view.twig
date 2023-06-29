@@ -1,0 +1,22 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ thread.title }}{% endblock title %}
+
+{% block content %}
+    <div class="box">
+        <div class="field">Created by {{ include('userAvInline.twig', {user: thread.creator}) }}
+            on {{ thread.dateCreated.toCookieString() }}</div>
+        {% if user.idUser == thread.creator.idUser %}
+            <div class="field">
+                <a class="button is-danger" href="/thread/{{ thread.idThread }}/close">Lock Thread</a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if user %}
+        <div class="box">
+            <p class="title is-4">Create a new post chain</p>
+            {{ include('thread.comment.twig', {}) }}
+        </div>
+    {% endif %}
+{% endblock %}

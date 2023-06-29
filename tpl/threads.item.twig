@@ -7,5 +7,9 @@
     <td class="nowrap">
         <span title="{{ item.dateCreated.toCookieString() }}">{{ item.dateCreated.diffForHumans() }}</span>
     </td>
-    <td class="nowrap">lastpost</td>
+    <td class="nowrap">
+        {% if item.posts|length > 0 %}
+            <span title="{{ item.posts[0].dateCreated.toCookieString() }}">{{ item.posts[0].dateCreated.diffForHumans() }}</span>
+        {% endif %}
+    </td>
 </tr>
