@@ -21,7 +21,12 @@ class Controller extends \Nin\Controller
         $loader = new \Twig\Loader\FilesystemLoader('tpl');
         $this->twig = new \Twig\Environment($loader, [
             'cache' => false,
+            'debug' => php_sapi_name() == 'cli-server',
+            'strict_variables' => php_sapi_name() == 'cli-server',
         ]);
+        if (php_sapi_name() == 'cli-server') {
+            $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+        }
     }
 
     public function renderPartial($view, $options = [])
