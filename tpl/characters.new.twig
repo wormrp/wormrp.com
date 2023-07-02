@@ -1,0 +1,48 @@
+{% extends "base.twig" %}
+
+{% block title %}Submit character{% endblock title %}
+
+{% block content %}
+    {% if user %}
+        <form method="post">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="name">Name</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" name="name" id="name" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="link">Link</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="url" name="link" id="link" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label"></div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="button is-primary" type="submit" value="Submit for approval">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}

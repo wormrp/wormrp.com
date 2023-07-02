@@ -1,0 +1,22 @@
+<tr>
+    <td>
+        <a href="{{ item.link }}">{{ item.name }}</a>
+    </td>
+    <td>{{ include('userAvInline.twig', {user: item.author}) }}</td>
+    <td>
+        {% if item.status == constant("CHAR_PENDING", item) %}
+            Pending
+        {% elseif item.status == constant("CHAR_REVIEW", item) %}
+            In review
+        {% elseif item.status == constant("CHAR_EDITS", item) %}
+            Pending edits
+        {% elseif item.status == constant("CHAR_APPROVED", item) %}
+            Approved
+        {% elseif item.status == constant("CHAR_REJECTED", item) %}
+            Rejected
+        {% endif %}
+    </td>
+    <td class="nowrap">
+        <span title="{{ item.dateCreated.toCookieString() }}">{{ item.dateCreated.diffForHumans() }}</span>
+    </td>
+</tr>

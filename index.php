@@ -24,6 +24,9 @@ namespace WormRP {
 
     nf_route("/thread/:idThread", "WormRP\Controller\Thread.View");
 
+    nf_route("/characters", "WormRP\Controller\Characters.Index");
+    nf_route("/characters/new", "WormRP\Controller\Characters.New");
+
     $defaultConfig = [
         'name' => 'WormRP',
         'debug' => php_sapi_name() == 'cli-server',

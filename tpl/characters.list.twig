@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block title %}My Characters{% endblock title %}
+
+{% block content %}
+    {% if user %}
+        <div class="field">
+            <div class="control">
+                <a class="button is-link" href="/characters/new">
+                    Submit a character for review
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+        <tr>
+            <th>Character</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th class="is-narrow">Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ mine.renderItems("characters.item") }}
+        {{ characters.renderItems("characters.item") }}
+        </tbody>
+    </table>
+{% endblock %}
