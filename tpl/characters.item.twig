@@ -1,6 +1,11 @@
 <tr>
     <td>
-        <a href="{{ item.link }}">{{ item.name }}</a>
+        {% if user.idUser == item.idAuthor %}
+            <a href="{{ item.link }}">{{ item.name }}</a>
+        {% else %}
+            <a href="https://wiki.wormrp.com/wiki/{{ item.name|replace({" ": "_"}) }}">{{ item.name }}</a>
+        {% endif %}
+
     </td>
     <td>{{ include('userAvInline.twig', {user: item.author}) }}</td>
     <td>
