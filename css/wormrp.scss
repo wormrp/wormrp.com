@@ -1,6 +1,29 @@
+/*!
+ * Copyright (c) 2023 Keira Dueck <sylae@calref.net>
+ * Use of this source code is governed by the MIT license, which
+ * can be found in the LICENSE file.
+ */
+
 @charset "utf-8";
 @import "bulma/bulma.sass";
 
+$fa-font-path: "/css/forkawesome/fonts";
+@import "forkawesome/scss/fork-awesome";
+
+
 .nowrap {
   white-space: nowrap;
+}
+
+// https://github.com/ForkAwesome/Fork-Awesome/blob/master/scss/_core.scss
+a[href*="://"]:after {
+  display: inline-block;
+  font: normal normal normal #{$fa-font-size-base}/#{$fa-line-height-base} #{$fa-font-family};
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: fa-content($fa-var-external-link);
+  padding-left: 0.25rem;
+  opacity: 0.5;
 }
