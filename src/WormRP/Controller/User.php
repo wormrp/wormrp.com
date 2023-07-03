@@ -28,6 +28,7 @@ class User extends Controller
             if (!\WormRP\Model\User::findByPk(Nin::uid())) {
                 Nin::unsetuid();
                 session_destroy();
+                $this->redirect('/login');
             } else {
                 $this->redirect('/');
                 return;
