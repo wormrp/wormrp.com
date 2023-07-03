@@ -77,7 +77,7 @@ class User extends Controller
         $user = \WormRP\Model\User::findByAttributes(array('idUser' => $resp['id']));
 
         if (!$user) {
-            $user = new User();
+            $user = new \WormRP\Model\User();
             $user->idUser = (int)$resp['id'];
             $user->username = $resp['username'];
             $user->displayName = $resp['global_name'];
