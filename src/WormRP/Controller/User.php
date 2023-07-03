@@ -28,10 +28,10 @@ class User extends Controller
             if (!\WormRP\Model\User::findByPk(Nin::uid())) {
                 Nin::unsetuid();
                 session_destroy();
+            } else {
+                $this->redirect('/');
+                return;
             }
-
-            $this->redirect('/');
-            return;
         }
 
         if (array_key_exists('HTTP_REFERER', $_SERVER)) {
