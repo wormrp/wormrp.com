@@ -1,5 +1,6 @@
 {
   "require": {
+    "guzzlehttp/guzzle": "^7.7",
     "nesbot/carbon": "^2.67",
     "twig/twig": "^3.4",
     "wohali/oauth2-discord-new": "^1.1"

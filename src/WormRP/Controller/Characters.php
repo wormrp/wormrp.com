@@ -9,6 +9,7 @@ namespace WormRP\Controller;
 
 use Nin\ListViews\ModelListView;
 use Nin\Nin;
+use WormRP\DiscordWebhook;
 use WormRP\Model\Character;
 
 class Characters extends \WormRP\Controller
@@ -122,7 +123,11 @@ class Characters extends \WormRP\Controller
             $char->idAuthor = Nin::uid();
             $char->save();
 
-            $this->redirect("/character/" . $char->idCharacter);
+            $disc = new DiscordWebhook(nf_param("webhooks.queue"));
+            $disc->msg = sprintf("<@%s> submitted: %s", Nin::uid(), $char->name);
+            $disc->send();
+
+            $this->redirect("/characters");
         } else {
             $this->render("characters.new", []);
         }
