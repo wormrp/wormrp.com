@@ -98,6 +98,8 @@ class User extends Controller
         Nin::setuid((int)$resp['id']);
         Nin::setSession('csrf_token', Nin::randomString(32));
 
+        die();
+
         $redirect = Nin::getSession("postAuthRedirect");
         if ($redirect) {
             $this->redirect($redirect);
