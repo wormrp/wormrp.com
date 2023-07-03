@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        {{ mine.renderItems("characters.item") }}
+        {% if user %}{{ mine.renderItems("characters.item") }}{% endif %}
         {{ characters.renderItems("characters.item") }}
         </tbody>
     </table>

@@ -11,7 +11,7 @@
             <th>Author</th>
             <th class="is-narrow">Created</th>
             <th class="is-narrow">Status</th>
-            {% if user.isApprover %}
+            {% if user and user.isApprover %}
                 <th class="is-narrow">Actions</th>
             {% endif %}
         </tr>
@@ -20,7 +20,7 @@
         {% for c in characters %}
             <tr>
                 <td>
-                    {% if user.isApprover %}
+                    {% if user and user.isApprover %}
                         <a href="{{ c.link }}" target="_blank">{{ c.name }}</a>
                     {% else %}
                         {{ c.name }}
@@ -45,7 +45,7 @@
                     <br/>
                     <span class="is-italic is-size-7" title="{{ c.dateUpdated.toCookieString() }}">{{ c.dateUpdated.diffForHumans() }}</span>
                 </td>
-                {% if user.isApprover %}
+                {% if user and user.isApprover %}
                     <td class="nowrap">
                         <form method="post">
                             <input type="hidden" name="csrf" value="{{ csrf }}">
