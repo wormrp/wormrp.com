@@ -5,6 +5,21 @@
  */
 
 @charset "utf-8";
+
+@import "fonts";
+
+$family-sans-serif: "Atkinson Hyperlegible", "Lato", "Segoe UI", sans-serif;
+$family-monospace: "Cascadia Mono", "Cascadia Code", monospace;
+
+$navbar-item-color: #ffbe47;
+$navbar-background-color: #0c0c0c;
+$navbar-item-hover-background-color: $navbar-background-color;
+$navbar-item-hover-color: #c8a900;
+$scheme-main: #e1e2e1;
+$scheme-main-bis: #d9dad9;
+$scheme-main-ter: #d1d2d1;
+$input-border-color: #a1a2a1;
+
 @import "bulma/bulma.sass";
 
 $fa-font-path: "/css/forkawesome/fonts";
