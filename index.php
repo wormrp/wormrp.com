@@ -32,7 +32,7 @@ namespace WormRP {
 
     $defaultConfig = [
         'name' => 'WormRP',
-        'debug' => true,
+        'debug' => php_sapi_name() == 'cli-server',
         'routing' => [
             'preferRules' => false,
             'rules' => [

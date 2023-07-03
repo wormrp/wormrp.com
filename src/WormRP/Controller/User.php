@@ -23,8 +23,13 @@ class User extends Controller
 
     public function actionLogin()
     {
-
         if (Nin::uid() !== false) {
+            // ensure we have a valid user object
+            if (!\WormRP\Model\User::findByPk(Nin::uid())) {
+                Nin::unsetuid();
+                session_destroy();
+            }
+
             $this->redirect('/');
             return;
         }
@@ -86,8 +91,7 @@ class User extends Controller
         $user->banner = $resp['banner'];
         $user->save();
 
-
-        Nin::setuid($user->idUser);
+        Nin::setuid((int)$resp['id']);
         Nin::setSession('csrf_token', Nin::randomString(32));
 
         $redirect = Nin::getSession("postAuthRedirect");
