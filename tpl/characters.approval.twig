@@ -19,7 +19,13 @@
         <tbody>
         {% for c in characters %}
             <tr>
-                <td><a href="{{ c.link }}">{{ c.name }}</a></td>
+                <td>
+                    {% if user.isApprover %}
+                        <a href="{{ c.link }}" target="_blank">{{ c.name }}</a>
+                    {% else %}
+                        {{ c.name }}
+                    {% endif %}
+                </td>
                 <td>{{ include('userAvInline.twig', {user: c.author}) }}</td>
                 <td class="nowrap">
                     <span title="{{ c.dateCreated.toCookieString() }}">{{ c.dateCreated.diffForHumans() }}</span>
