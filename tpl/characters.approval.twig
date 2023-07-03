@@ -1,0 +1,86 @@
+{% extends "base.twig" %}
+
+{% block title %}Approval Queue{% endblock title %}
+
+{% block content %}
+
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+        <tr>
+            <th>Character</th>
+            <th>Author</th>
+            <th class="is-narrow">Created</th>
+            <th class="is-narrow">Status</th>
+            {% if user.isApprover %}
+                <th class="is-narrow">Actions</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in characters %}
+            <tr>
+                <td><a href="{{ c.link }}">{{ c.name }}</a></td>
+                <td>{{ include('userAvInline.twig', {user: c.author}) }}</td>
+                <td class="nowrap">
+                    <span title="{{ c.dateCreated.toCookieString() }}">{{ c.dateCreated.diffForHumans() }}</span>
+                </td>
+                <td class="nowrap">
+                    {% if c.status == constant("CHAR_PENDING", c) %}
+                        Pending
+                    {% elseif c.status == constant("CHAR_REVIEW", c) %}
+                        In review
+                    {% elseif c.status == constant("CHAR_EDITS", c) %}
+                        Pending edits
+                    {% elseif c.status == constant("CHAR_APPROVED", c) %}
+                        Approved
+                    {% elseif c.status == constant("CHAR_REJECTED", c) %}
+                        Rejected
+                    {% endif %}
+                    <br/>
+                    <span class="is-italic is-size-7" title="{{ c.dateUpdated.toCookieString() }}">{{ c.dateUpdated.diffForHumans() }}</span>
+                </td>
+                {% if user.isApprover %}
+                    <td class="nowrap">
+                        <form method="post">
+                            <input type="hidden" name="csrf" value="{{ csrf }}">
+                            <input type="hidden" name="idCharacter" value="{{ c.idCharacter }}">
+                            <div class="field is-grouped">
+                                <p class="control">
+                                    <button class="button is-link" name="status" value="{{ constant("CHAR_PENDING", c) }}">
+                                        <span class="icon"><i class="fa fa-hourglass-o"></i></span>
+                                        <span>Reset</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <button class="button is-link" name="status" value="{{ constant("CHAR_REVIEW", c) }}">
+                                        <span class="icon"><i class="fa fa-lock"></i></span>
+                                        <span>Claim</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <button class="button is-link" name="status" value="{{ constant("CHAR_EDITS", c) }}">
+                                        <span class="icon"><i class="fa fa-edit"></i></span>
+                                        <span>Editing</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <button class="button is-success" name="status" value="{{ constant("CHAR_APPROVED", c) }}">
+                                        <span class="icon"><i class="fa fa-check"></i></span>
+                                        <span>Approve</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <button class="button is-danger" name="status" value="{{ constant("CHAR_REJECTED", c) }}">
+                                        <span class="icon"><i class="fa fa-trash-o"></i></span>
+                                        <span>Deny</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

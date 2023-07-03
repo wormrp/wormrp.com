@@ -26,6 +26,7 @@ namespace WormRP {
 
     nf_route("/characters", "WormRP\Controller\Characters.Index");
     nf_route("/characters/new", "WormRP\Controller\Characters.New");
+    nf_route("/characters/queue", "WormRP\Controller\Characters.Approvals");
 
     $defaultConfig = [
         'name' => 'WormRP',

@@ -17,6 +17,10 @@ use Carbon\Carbon;
  * @property ?string $banner
  * @property Carbon $dateCreated
  * @property Carbon $dateUpdated
+ * @property bool $isAdmin
+ * @property bool $isMod
+ * @property bool $isApprover
+ * @property bool $isBanned
  *
  * @property DbSession[] $sessions
  * @property Character[] $characters

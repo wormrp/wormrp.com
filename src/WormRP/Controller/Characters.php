@@ -56,6 +56,39 @@ class Characters extends \WormRP\Controller
             ->orderby('dateUpdated', 'DESC');
     }
 
+    public function actionApprovals(int $page = 1)
+    {
+        $this->addBreadcrumb("Approval Queue", "/characters/queue");
+
+        if (isset($_POST['csrf'])) {
+            if (!Nin::user()->isApprover) {
+                $this->displayError("not an approver >:(", 403);
+                return false;
+            }
+
+            if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
+                $this->displayError('Invalid token.');
+                return false;
+            }
+            /** @var Character $char */
+            $char = Character::findByPk($_POST['idCharacter']);
+            $char->status = intval($_POST['status']);
+            $char->save();
+        }
+
+        $pending = Character::findAllByAttributes([
+            'status' => [
+                Character::CHAR_PENDING,
+                Character::CHAR_REVIEW,
+                Character::CHAR_EDITS
+            ]
+        ]);
+
+        $this->render("characters.approval", [
+            'characters' => $pending
+        ]);
+    }
+
     public function actionNew()
     {
         if (!Nin::user()) { // how did you get here

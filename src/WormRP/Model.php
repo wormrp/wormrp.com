@@ -16,6 +16,8 @@ class Model extends \Nin\Model
     {
         if (in_array($name, ['dateCreated', 'dateUpdated'])) {
             return new Carbon(parent::__get($name));
+        } elseif (str_starts_with($name, "is")) {
+            return (bool)parent::__get($name);
         } else {
             return parent::__get($name);
         }
