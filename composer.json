@@ -1,6 +1,5 @@
 {
   "require": {
-    "codecat/nin": "dev-master",
     "nesbot/carbon": "^2.67",
     "twig/twig": "^3.4",
     "wohali/oauth2-discord-new": "^1.1"
@@ -22,5 +21,8 @@
       "name": "Keira Dueck",
       "email": "sylae@calref.net"
     }
-  ]
+  ],
+  "platform": {
+    "php": "8.0.*"
+  }
 }

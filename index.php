@@ -8,7 +8,7 @@
 namespace WormRP {
 
     require_once __DIR__ . '/vendor/autoload.php';
-    include_once __DIR__ . '/vendor/codecat/nin/nf.php';
+    include_once __DIR__ . '/nin/nf.php';
 
     date_default_timezone_set('UTC');
 

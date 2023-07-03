@@ -4,47 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0d75bac14790017c09dd16de32149b2",
+    "content-hash": "6ad2adb3d3fbd794956f421d21cbcb34",
     "packages": [
-        {
-            "name": "codecat/nin",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/codecat/Nin.git",
-                "reference": "89a2aa719a7a1449d76f104a20fcf35cfd5ce831"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/codecat/Nin/zipball/89a2aa719a7a1449d76f104a20fcf35cfd5ce831",
-                "reference": "89a2aa719a7a1449d76f104a20fcf35cfd5ce831",
-                "shasum": ""
-            },
-            "default-branch": true,
-            "type": "project",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Codecat",
-                    "email": "spansjh@gmail.com"
-                }
-            ],
-            "description": "A minimalistic PHP framework based on some of the ideas of Yii 1 and 2.",
-            "support": {
-                "issues": "https://github.com/codecat/Nin/issues",
-                "source": "https://github.com/codecat/Nin/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "https://www.patreon.com/openplanet",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2023-06-09T01:25:39+00:00"
-        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "7.7.0",
@@ -442,16 +403,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.67.0",
+            "version": "2.68.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8"
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c1001b3bc75039b07f38a79db5237c4c529e04c8",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
                 "shasum": ""
             },
             "require": {
@@ -540,7 +501,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T22:09:47+00:00"
+            "time": "2023-06-20T18:29:04+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1423,9 +1384,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "codecat/nin": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
