@@ -78,6 +78,7 @@ class User extends Controller
         //      'avatar_decoration' => null
 
         $resp = $this->oauth->provider->getResourceOwner($token)->toArray();
+        Nin::setSession("discordResponse", $resp);
 
         $user = \WormRP\Model\User::findByAttributes(array('idUser' => $resp['id']));
 
