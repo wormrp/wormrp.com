@@ -21,8 +21,5 @@
       "name": "Keira Dueck",
       "email": "sylae@calref.net"
     }
-  ],
-  "platform": {
-    "php": "8.0.*"
-  }
+  ]
 }
