@@ -15,10 +15,6 @@ class Characters extends \WormRP\Controller
 {
     public function beforeAction($action)
     {
-        if (!Nin::user()) {
-            $this->redirect("/login");
-            return false;
-        }
         $this->addBreadcrumb("Characters", "/characters/");
         return $action;
     }
@@ -50,6 +46,10 @@ class Characters extends \WormRP\Controller
 
     protected function myCharacters()
     {
+        if (!Nin::user()) {
+            $this->redirect("/login");
+            return false;
+        }
         return \WormRP\Model\Character::beginQuery()
             ->select()
             ->where('idAuthor', Nin::uid())
@@ -61,6 +61,10 @@ class Characters extends \WormRP\Controller
         $this->addBreadcrumb("Approval Queue", "/characters/queue");
 
         if (isset($_POST['csrf'])) {
+            if (!Nin::user()) {
+                $this->redirect("/login");
+                return false;
+            }
             if (!Nin::user()->isApprover) {
                 $this->displayError("not an approver >:(", 403);
                 return false;
@@ -91,9 +95,9 @@ class Characters extends \WormRP\Controller
 
     public function actionNew()
     {
-        if (!Nin::user()) { // how did you get here
+        if (!Nin::user()) {
             $this->redirect("/login");
-            return;
+            return false;
         }
 
         $this->addBreadcrumb("Submit character", "/characters/new");
@@ -101,14 +105,14 @@ class Characters extends \WormRP\Controller
         if (isset($_POST['csrf'])) {
             if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
                 $this->displayError('Invalid token.');
-                return;
+                return false;
             }
             $name = trim($_POST['name']);
             $link = trim($_POST['link']);
 
             if (mb_strlen($name) == 0 || mb_strlen($link) == 0) {
                 $this->displayError("Name and link are both required, please try again", 400);
-                return;
+                return false;
             }
 
             $char = new \WormRP\Model\Character();

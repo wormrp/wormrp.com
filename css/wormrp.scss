@@ -11,10 +11,22 @@
 $family-sans-serif: "Atkinson Hyperlegible", "Lato", "Segoe UI", sans-serif;
 $family-monospace: "Cascadia Mono", "Cascadia Code", monospace;
 
-$navbar-item-color: #ffbe47;
-$navbar-background-color: #0c0c0c;
-$navbar-item-hover-background-color: $navbar-background-color;
-$navbar-item-hover-color: #c8a900;
+$navbar-text: #ffbe47;
+$navbar-text-hover: #c8a900;
+$navbar-bg: #0c0c0c;
+
+$navbar-item-color: $navbar-text;
+$navbar-item-hover-color: $navbar-text-hover;
+$navbar-background-color: $navbar-bg;
+$navbar-item-hover-background-color: $navbar-bg;
+$navbar-dropdown-background-color: $navbar-bg;
+$navbar-dropdown-item-color: $navbar-text;
+$navbar-dropdown-item-hover-color: $navbar-text-hover;
+$navbar-dropdown-item-hover-background-color: $navbar-bg;
+$navbar-dropdown-border-top: 0;
+$navbar-dropdown-arrow: $navbar-text;
+
+
 $scheme-main: #e1e2e1;
 $scheme-main-bis: #d9dad9;
 $scheme-main-ter: #d1d2d1;

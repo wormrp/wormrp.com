@@ -28,6 +28,8 @@ namespace WormRP {
     nf_route("/characters/new", "WormRP\Controller\Characters.New");
     nf_route("/characters/queue", "WormRP\Controller\Characters.Approvals");
 
+    nf_route("/admin/users", "WormRP\Controller\Admin.UserList");
+
     $defaultConfig = [
         'name' => 'WormRP',
         'debug' => php_sapi_name() == 'cli-server',

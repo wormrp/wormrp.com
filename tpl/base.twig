@@ -42,6 +42,16 @@
                     <a class="navbar-item" href="/characters/queue">Queue</a>
                     <a class="navbar-item" href="https://discord.gg/KjYAwes" target="_blank">Discord</a>
                     <a class="navbar-item" href="https://wiki.wormrp.com" target="_blank">Wiki</a>
+                    {% if user and user.isAdmin %}
+                        <nav class="navbar" role="navigation" aria-label="dropdown navigation">
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link">Admin</a>
+                                <div class="navbar-dropdown">
+                                    <a class="navbar-item" href="/admin/users">User management</a>
+                                </div>
+                            </div>
+                        </nav>
+                    {% endif %}
                 </div>
 
                 <div class="navbar-end">
