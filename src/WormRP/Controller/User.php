@@ -82,7 +82,6 @@ class User extends Controller
         Nin::setSession("discordResponse", $resp);
 
         $user = \WormRP\Model\User::findByAttributes(array('idUser' => $resp['id']));
-        var_dump($user);
         if (!$user) {
             $user = new \WormRP\Model\User();
             $user->idUser = (int)$resp['id'];
@@ -93,12 +92,8 @@ class User extends Controller
         $user->banner = $resp['banner'];
         $user->save();
 
-        var_dump($user);
-
         Nin::setuid((int)$resp['id']);
         Nin::setSession('csrf_token', Nin::randomString(32));
-
-        die();
 
         $redirect = Nin::getSession("postAuthRedirect");
         if ($redirect) {
