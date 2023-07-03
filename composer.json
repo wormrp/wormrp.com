@@ -6,7 +6,10 @@
   },
   "config": {
     "optimize-autoloader": true,
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "8.0.27"
+    }
   },
   "autoload": {
     "psr-4": {
