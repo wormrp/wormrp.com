@@ -29,6 +29,7 @@ namespace WormRP {
     nf_route("/characters/queue", "WormRP\Controller\Characters.Approvals");
 
     nf_route("/admin/users", "WormRP\Controller\Admin.UserList");
+    nf_route("/admin/users/:idUser", "WormRP\Controller\Admin.UserFlags");
 
     $defaultConfig = [
         'name' => 'WormRP',

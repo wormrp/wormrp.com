@@ -1,6 +1,6 @@
 <tr>
     <td>{{ include('userAvInline.twig', {user: item}) }}</td>
-    <td>{{ item.username }} ({{ item.idUser }})</td>
+    <td>{{ item.username }} (<a href="/admin/users/{{ item.idUser }}">{{ item.idUser }}</a>)</td>
     <td>
         {{ item.isAdmin ? "Admin " : "" }}
         {{ item.isMod ? "Mod " : "" }}

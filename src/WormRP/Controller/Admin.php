@@ -26,6 +26,7 @@ class Admin extends Controller
 
     public function actionUserList(int $page = 1)
     {
+        $this->addBreadcrumb("User Management", "/admin/users");
         $query = \WormRP\Model\User::beginQuery()->select()->orderby('username', 'ASC');
 
         $users = new ModelListView($this, $page, $query);
@@ -35,5 +36,34 @@ class Admin extends Controller
         $this->render('admin.users', array(
             'users' => $users,
         ));
+    }
+
+    public function actionUserFlags(int $idUser)
+    {
+        /** @var \WormRP\Model\User $user */
+        $user = \WormRP\Model\User::findByPk($idUser);
+
+        if (!$user) {
+            $this->displayError("unknown user");
+            return;
+        }
+        $this->addBreadcrumb("User Management", "/admin/users");
+        $this->addBreadcrumb($user->username, "/admin/users/" . $user->idUser);
+
+        if (isset($_POST['csrf'])) {
+            if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
+                $this->displayError('Invalid token.');
+                return;
+            }
+
+            $user->isAdmin = array_key_exists("admin", $_POST);
+            $user->isMod = array_key_exists("mod", $_POST);
+            $user->isApprover = array_key_exists("approver", $_POST);
+            $user->isBanned = array_key_exists("banned", $_POST);
+            $user->save();
+        }
+
+
+        $this->render("admin.userflags", ['v' => $user]);
     }
 }
