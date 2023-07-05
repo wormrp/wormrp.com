@@ -17,6 +17,7 @@ class Thread extends \WormRP\Controller
      * @var \WormRP\Model\User[]
      */
     public array $participants = [];
+
     public \WormRP\Model\Thread|bool $thread = false;
 
     function __construct($idThread)
@@ -24,24 +25,7 @@ class Thread extends \WormRP\Controller
         parent::__construct();
         if (is_numeric($idThread)) {
             $this->thread = \WormRP\Model\Thread::findByPk($idThread);
-            $this->participants = $this->getUsersInThread();
         }
-    }
-
-    protected function getUsersInThread()
-    {
-        $users = [];
-        $users[] = $this->thread->creator;
-        foreach ($this->thread->posts as $post) {
-            if (!$post->author->isBanned && !in_array($post->author, $users)) {
-                $users[] = $post->author;
-            }
-            if ($post->ping && !$post->ping->isBanned && !in_array($post->ping, $users)) {
-                $users[] = $post->ping;
-            }
-        }
-
-        return $users;
     }
 
     public function beforeAction($action)
@@ -58,7 +42,6 @@ class Thread extends \WormRP\Controller
         $this->addBreadcrumb("Threads", "/threads");
         $this->addBreadcrumb("Viewing thread", "/thread/" . $this->thread->idThread);
 
-        $participants = $this->getUsersInThread();
         $allUsers = \WormRP\Model\User::findAllByAttributes(['isBanned' => false]);
 
         $this->render('thread.view', [
@@ -196,5 +179,21 @@ class Thread extends \WormRP\Controller
         } else {
             $this->displayError('Empty form response.');
         }
+    }
+
+    protected function getUsersInThread()
+    {
+        $users = [];
+        $users[] = $this->thread->creator;
+        foreach ($this->thread->posts as $post) {
+            if (!$post->author->isBanned && !in_array($post->author, $users)) {
+                $users[] = $post->author;
+            }
+            if ($post->ping && !$post->ping->isBanned && !in_array($post->ping, $users)) {
+                $users[] = $post->ping;
+            }
+        }
+
+        return $users;
     }
 }
