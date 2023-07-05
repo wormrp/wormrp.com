@@ -131,4 +131,70 @@ class Thread extends \WormRP\Controller
             $this->displayError('Empty form response.');
         }
     }
+
+    public function actionEditReply(int $idPost)
+    {
+        if (!Nin::user()) {
+            $this->redirect("/login");
+            return;
+        }
+
+        /** @var Post $post */
+        $post = Post::findByPk($idPost);
+        if (!$post) {
+            $this->displayError('Unknown post');
+            return;
+        }
+
+        if (Nin::user() != $post->author) {
+            $this->displayError('you can only edit your own posts!');
+            return;
+        }
+
+        if (isset($_POST['csrf'])) {
+            if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
+                $this->displayError('Invalid token.');
+                return;
+            }
+
+            if (mb_strlen(trim($_POST['post'] ?? "")) > 0) {
+                $post->post = trim($_POST['post']);
+            } else {
+                $this->displayError('Post body cannot be empty');
+                return;
+            }
+
+            if ($_POST['character'] != "") {
+                /** @var Character $char */
+                $char = Character::findByPk($_POST['character']);
+                if (!$char) {
+                    $this->displayError('Unknown character');
+                    return;
+                }
+                $post->idCharacter = $char->idCharacter;
+            } else {
+                $post->idCharacter = null;
+            }
+
+            if (($_POST['ping'] ?? "") != "") {
+                /** @var \WormRP\Model\User $ping */
+                $ping = \WormRP\Model\User::findByPk($_POST['ping']);
+                if (!$ping) {
+                    $this->displayError('Invalid pinged user id');
+                    return;
+                }
+                $post->idPing = $ping->idUser;
+            } else {
+                $post->idPing = null;
+            }
+
+            if ($post->save()) {
+                $this->redirect("/thread/" . $this->thread->idThread . "#post-" . $post->idPost);
+            } else {
+                $this->displayError('Error saving reply. Please seek help.');
+            }
+        } else {
+            $this->displayError('Empty form response.');
+        }
+    }
 }

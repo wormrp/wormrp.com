@@ -54,3 +54,9 @@ a[href*="://"]:after {
   padding-left: 0.25rem;
   opacity: 0.5;
 }
+
+.media .media {
+  margin-left: -2rem;
+  border-left: 1px $scheme-main-ter solid;
+  padding-left: 0.5rem;
+}

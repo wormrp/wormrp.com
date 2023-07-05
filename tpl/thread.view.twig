@@ -3,26 +3,29 @@
 {% block title %}{{ thread.title }}{% endblock title %}
 
 {% block content %}
-    <div class="box">
+    <div class="box" id="top">
         <div class="field">Created by {{ include('userAvInline.twig', {user: thread.creator}) }}
             on {{ thread.dateCreated.toCookieString() }}</div>
         {% if user.idUser == thread.creator.idUser %}
+            <!--
             <div class="field">
                 <a class="button is-danger" href="/thread/{{ thread.idThread }}/close">Lock Thread</a>
             </div>
+            -->
         {% endif %}
-    </div>
 
-    {% if user and thread.isOpen %}
-        <div class="box">
+        {% if user and thread.isOpen %}
             <p class="title is-4">Create a new post chain</p>
             {{ include('thread.comment.twig') }}
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 
     {% for p in thread.posts %}
         {% if p.parent == false %}
             <div class="box">
+                <div class="is-size-7 pb-1">
+                    <a href="#top">Go to top</a>
+                </div>
                 {{ include('thread.viewreply.twig', {post: p}) }}
             </div>
         {% endif %}

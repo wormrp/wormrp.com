@@ -45,7 +45,7 @@ class Post extends \WormRP\Model
             'author' => [BELONGS_TO, "WormRP\Model\User", 'idAuthor'],
             'ping' => [BELONGS_TO, "WormRP\Model\User", 'idPing'],
             'parent' => [BELONGS_TO, self::class, 'idParent'],
-            'replies' => [HAS_MANY, self::class, 'idParent'],
+            'replies' => [HAS_MANY, self::class, 'idParent', ['order' => 'asc', 'orderby' => 'dateCreated']],
             'thread' => [BELONGS_TO, "WormRP\Model\Thread", 'idThread'],
             'character' => [HAS_ONE, "WormRP\Model\Character", 'idCharacter']
         ];

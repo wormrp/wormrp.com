@@ -1,6 +1,6 @@
 <article class="media reply" id="post-{{ post.idPost }}">
     <figure class="media-left">
-        <p class="image is-64x64">
+        <p class="image is-32x32">
             <img src="{{ post.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
         </p>
     </figure>
@@ -20,6 +20,11 @@
                     <span class="icon"><i class="fa fa-reply"></i></span>
                     <span>Reply</span>
                 </button>
+                <!--<button class="button is-warning" data-post="post-{{ post.idPost }}">
+                    <span class="icon"><i class="fa fa-warning"></i></span>
+                    <span>Report</span>
+                </button>-->
+                <!-- No reports for now....go ping someone in discord -->
             {% endif %}
             {% if user and post.idAuthor == user.idUser %}
                 <button class="button is-link is-edit-button" data-post="post-{{ post.idPost }}">
@@ -32,15 +37,24 @@
                 </button>
             {% endif %}
         </div>
+
+        {% if post.replies|length == 0 and post.ping %}
+            <div><i class="fa fa-share" aria-hidden="true"></i> {{ include('userAvInline.twig', {user: post.ping}) }}</div>
+        {% endif %}
+
         <div class="replyForm">
             {{ include('thread.comment.twig', {parent: post}) }}
         </div>
-        <div class="editForm">
-            {{ include('thread.comment.twig', {edit: post}) }}
-        </div>
+        {% if user and post.idAuthor == user.idUser %}
+            <div class="editForm">
+                {{ include('thread.comment.twig', {edit: post}) }}
+            </div>
+        {% endif %}
 
-        {% for pp in post.replies %}
-            {{ include('thread.viewreply.twig', {post: pp}) }}
-        {% endfor %}
+        {% if post.replies|length > 0 %}
+            {% for pp in post.replies %}
+                {{ include('thread.viewreply.twig', {post: pp}) }}
+            {% endfor %}
+        {% endif %}
     </div>
 </article>

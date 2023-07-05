@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         replyButton.addEventListener("click", function (event) {
             if (replyForm.classList.contains("is-hidden")) {
                 replyForm.classList.remove("is-hidden");
-                editForm.classList.add("is-hidden");
+                if (editForm) editForm.classList.add("is-hidden");
             } else {
                 replyForm.classList.add("is-hidden");
             }
@@ -29,6 +29,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         });
         replyForm.classList.add("is-hidden");
-        editForm.classList.add("is-hidden");
+        if (editForm) editForm.classList.add("is-hidden");
     });
 });

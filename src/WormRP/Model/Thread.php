@@ -45,7 +45,7 @@ class Thread extends \WormRP\Model
     {
         return [
             'creator' => [BELONGS_TO, "WormRP\Model\User", 'idCreator'],
-            'posts' => [HAS_MANY, "WormRP\Model\Post", 'idThread', ['order' => 'desc', 'orderby' => 'dateCreated']]
+            'posts' => [HAS_MANY, "WormRP\Model\Post", 'idThread', ['order' => 'asc', 'orderby' => 'dateCreated']]
         ];
     }
 }
