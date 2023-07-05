@@ -6,7 +6,7 @@
     <div class="box" id="top">
         <div class="field">Created by {{ include('userAvInline.twig', {user: thread.creator}) }}
             on {{ thread.dateCreated.toCookieString() }}</div>
-        {% if user.idUser == thread.creator.idUser %}
+        {% if user and user.idUser == thread.creator.idUser %}
             <!--
             <div class="field">
                 <a class="button is-danger" href="/thread/{{ thread.idThread }}/close">Lock Thread</a>

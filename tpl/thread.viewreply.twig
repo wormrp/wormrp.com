@@ -42,9 +42,11 @@
             <div><i class="fa fa-share" aria-hidden="true"></i> {{ include('userAvInline.twig', {user: post.ping}) }}</div>
         {% endif %}
 
-        <div class="replyForm">
-            {{ include('thread.comment.twig', {parent: post}) }}
-        </div>
+        {% if user %}
+            <div class="replyForm">
+                {{ include('thread.comment.twig', {parent: post}) }}
+            </div>
+        {% endif %}
         {% if user and post.idAuthor == user.idUser %}
             <div class="editForm">
                 {{ include('thread.comment.twig', {edit: post}) }}
