@@ -86,7 +86,7 @@ class User extends Controller
             $user = new \WormRP\Model\User();
             $user->idUser = (int)$resp['id'];
             $user->username = $resp['username'];
-            $user->displayName = $resp['global_name'];
+            $user->displayName = $resp['global_name'] ?? $resp['username'];
         }
         $user->avatar = $resp['avatar'];
         $user->banner = $resp['banner'];
