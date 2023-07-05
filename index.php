@@ -53,6 +53,9 @@ namespace WormRP {
         ],
     ];
 
+    $mdParser = new \ParsedownExtra();
+    $mdParser->setSafeMode(true);
+
     $cfg = array_merge($defaultConfig, require_once 'config.php');
     nf_config_initialize($cfg);
     nf_db_initialize();

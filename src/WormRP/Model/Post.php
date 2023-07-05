@@ -53,6 +53,7 @@ class Post extends \WormRP\Model
 
     public function getMarkdown(): string
     {
-        return $this->mdParser->text($this->post);
+        global $mdParser;
+        return $mdParser->text($this->post);
     }
 }
