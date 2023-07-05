@@ -9,4 +9,28 @@
             the discord server linked above.</p>
     </section>
 
+    {% if user %}
+        <section class="pt-4">
+            <h1 class="title">Notifications</h1>
+            {% if doots|length > 0 %}
+                {% for v in doots %}
+                    {% if v.replies|length == 0 %}
+                        <div class="message">
+                            <div class="message-header">
+                                <p><a href="/thread/{{ v.thread.idThread }}">{{ v.thread.title }}</a> -
+                                    <span class="is-size-7" title="{{ v.dateCreated.toCookieString() }}">{{ v.dateCreated.diffForHumans() }}</span>
+                                </p>
+                            </div>
+                            <div class="message-body">
+                                {{ include('userAvInline.twig', {user: v.author}) }} pinged you in a <a href="/thread/{{ v.thread.idThread }}#post-{{ v.idPost }}">post</a>!
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div>You aren't up in anything! :)</div>
+            {% endif %}
+        </section>
+    {% endif %}
+
 {% endblock %}

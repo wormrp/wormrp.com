@@ -7,12 +7,19 @@
 
 namespace WormRP\Controller;
 
+use Nin\Nin;
 use WormRP\Controller;
+use WormRP\Model\Post;
 
 class Index extends Controller
 {
     public function actionIndex()
     {
-        $this->render("home", []);
+        if (Nin::user()) {
+            $doots = Post::findAllByAttributes(['idPing' => Nin::uid()]);
+        } else {
+            $doots = [];
+        }
+        $this->render("home", ['doots' => $doots]);
     }
 }
