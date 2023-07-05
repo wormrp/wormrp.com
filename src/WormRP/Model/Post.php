@@ -50,4 +50,9 @@ class Post extends \WormRP\Model
             'character' => [HAS_ONE, "WormRP\Model\Character", 'idCharacter']
         ];
     }
+
+    public function getMarkdown(): string
+    {
+        return $this->mdParser->text($this->post);
+    }
 }

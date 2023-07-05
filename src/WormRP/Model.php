@@ -12,6 +12,14 @@ use Carbon\Carbon;
 class Model extends \Nin\Model
 {
 
+    protected \ParsedownExtra $mdParser;
+
+    public function __construct()
+    {
+        $this->mdParser = new \ParsedownExtra();
+        $this->mdParser->setSafeMode(true);
+    }
+
     public function __get($name)
     {
         if (in_array($name, ['dateCreated', 'dateUpdated'])) {

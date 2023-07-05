@@ -13,7 +13,7 @@
             {% endif %}
             <span class="is-size-7" title="{{ post.dateCreated.toCookieString() }}">{{ post.dateCreated.diffForHumans() }}</span>
         </div>
-        <div class="content">{{ post.post }}</div>
+        <div class="content">{{ post.getMarkdown()|raw }}</div>
         <div class="buttons are-small">
             {% if user %}
                 <button class="button is-link is-reply-button" data-post="post-{{ post.idPost }}">
