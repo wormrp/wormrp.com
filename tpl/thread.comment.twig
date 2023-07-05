@@ -1,13 +1,21 @@
-<form method="post">
-    <div class="field">
-        <label class="label" for="character">Character</label>
-        <div class="control">
+<form method="post" action="/thread/{{ thread.idThread }}/reply">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    {% if parent is defined %}
+        <input type="hidden" name="parent" value="{{ parent.idPost }}">
+    {% endif %}
+    <div class="field is-horizontal">
+        <label class="field-label label" for="character">Character</label>
+        <div class="control field-body">
             <div class="select">
                 <select name="character" id="character">
                     <option value="">(none)</option>
                     {% for char in user.characters %}
                         {% if char.status == constant("CHAR_APPROVED", char) %}
-                            <option value="{{ char.idCharacter }}">{{ char.name }}</option>
+                            {% if edit is defined and edit.idCharacter is defined and edit.idCharacter == char.idCharacter %}
+                                <option value="{{ char.idCharacter }}" selected="selected">{{ char.name }}</option>
+                            {% else %}
+                                <option value="{{ char.idCharacter }}">{{ char.name }}</option>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -15,16 +23,48 @@
         </div>
     </div>
 
-    <div class="field">
-        <label class="label" for="post">Post</label>
-        <div class="control">
-            <textarea class="textarea" name="post" id="post"></textarea>
+    <div class="field is-horizontal">
+        <label class="field-label label" for="post">Post</label>
+        <div class="control field-body">
+            <textarea class="textarea" name="post" id="post">{% if edit is defined %}{{ edit.post }}{% endif %}</textarea>
         </div>
     </div>
 
-    <div class="field is-grouped">
-        <div class="control">
-            <button class="button is-link">Submit</button>
+    <div class="field is-horizontal">
+        <label class="field-label label" for="ping">Up next</label>
+        <div class="control field-body">
+            <div class="select">
+                <select name="ping" id="ping">
+                    <option value="">(none)</option>
+                    {% if participants|length > 0 %}
+                        <optgroup label="Thread participants">
+                            {% for v in participants %}
+                                {% if edit is defined and edit.idPing is defined and edit.idPing == v.idUser %}
+                                    <option value="{{ v.idUser }}" selected="selected">{{ v.displayName }}</option>
+                                {% else %}
+                                    <option value="{{ v.idUser }}">{{ v.displayName }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </optgroup>
+                    {% endif %}
+                    <optgroup label="All users">
+                        {% for v in allUsers %}
+                            <option value="{{ v.idUser }}">{{ v.displayName }}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label"></div>
+        <div class="control field-body">
+            {% if edit is defined %}
+                <button class="button is-link">Edit</button>
+            {% else %}
+                <button class="button is-link">Submit</button>
+            {% endif %}
         </div>
     </div>
 </form>

@@ -16,8 +16,10 @@ use Carbon\Carbon;
  * @property string $title
  * @property Carbon $dateCreated
  * @property Carbon $dateUpdated
- * @property User $creator
  * @property string $tag
+ *
+ * @property User $creator
+ * @property Post[] $posts
  */
 class Thread extends \WormRP\Model
 {

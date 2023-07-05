@@ -13,10 +13,18 @@
         {% endif %}
     </div>
 
-    {% if user %}
+    {% if user and thread.isOpen %}
         <div class="box">
             <p class="title is-4">Create a new post chain</p>
-            {{ include('thread.comment.twig', {}) }}
+            {{ include('thread.comment.twig') }}
         </div>
     {% endif %}
+
+    {% for p in thread.posts %}
+        {% if p.parent == false %}
+            <div class="box">
+                {{ include('thread.viewreply.twig', {post: p}) }}
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

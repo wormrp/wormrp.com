@@ -1,0 +1,46 @@
+<article class="media reply" id="post-{{ post.idPost }}">
+    <figure class="media-left">
+        <p class="image is-64x64">
+            <img src="{{ post.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
+        </p>
+    </figure>
+    <div class="media-content">
+        <div>
+            {% if post.character == false %}
+                <span class="has-text-weight-bold">{{ post.author.displayName }}</span>
+            {% else %}
+                <span class="has-text-weight-bold">{{ post.character.name }}</span> <span class="is-size-7">{{ post.author.displayName }}</span>
+            {% endif %}
+            <span class="is-size-7" title="{{ post.dateCreated.toCookieString() }}">{{ post.dateCreated.diffForHumans() }}</span>
+        </div>
+        <div class="content">{{ post.post }}</div>
+        <div class="buttons are-small">
+            {% if user %}
+                <button class="button is-link is-reply-button" data-post="post-{{ post.idPost }}">
+                    <span class="icon"><i class="fa fa-reply"></i></span>
+                    <span>Reply</span>
+                </button>
+            {% endif %}
+            {% if user and post.idAuthor == user.idUser %}
+                <button class="button is-link is-edit-button" data-post="post-{{ post.idPost }}">
+                    <span class="icon"><i class="fa fa-edit"></i></span>
+                    <span>Edit</span>
+                </button>
+                <button class="button is-danger">
+                    <span class="icon"><i class="fa fa-trash-o"></i></span>
+                    <span>Delete</span>
+                </button>
+            {% endif %}
+        </div>
+        <div class="replyForm">
+            {{ include('thread.comment.twig', {parent: post}) }}
+        </div>
+        <div class="editForm">
+            {{ include('thread.comment.twig', {edit: post}) }}
+        </div>
+
+        {% for pp in post.replies %}
+            {{ include('thread.viewreply.twig', {post: pp}) }}
+        {% endfor %}
+    </div>
+</article>

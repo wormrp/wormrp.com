@@ -13,15 +13,19 @@ use Carbon\Carbon;
  * @property int $idPost
  * @property int $idThread
  * @property int $idParent
+ * @property int $idAuthor
  * @property int $idCharacter
+ * @property int $idPing
  * @property string $post
  * @property Carbon $dateCreated
  * @property Carbon $dateUpdates
  *
  * @property User $author
+ * @property User $ping
  * @property self $parent
  * @property Thread $thread
  * @property Character $character
+ * @property self[] $replies
  */
 class Post extends \WormRP\Model
 {
@@ -39,7 +43,9 @@ class Post extends \WormRP\Model
     {
         return [
             'author' => [BELONGS_TO, "WormRP\Model\User", 'idAuthor'],
+            'ping' => [BELONGS_TO, "WormRP\Model\User", 'idPing'],
             'parent' => [BELONGS_TO, self::class, 'idParent'],
+            'replies' => [HAS_MANY, self::class, 'idParent'],
             'thread' => [BELONGS_TO, "WormRP\Model\Thread", 'idThread'],
             'character' => [HAS_ONE, "WormRP\Model\Character", 'idCharacter']
         ];
