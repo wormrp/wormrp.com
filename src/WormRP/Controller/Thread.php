@@ -50,6 +50,7 @@ class Thread extends \WormRP\Controller
             'thread' => $this->thread,
             'allUsers' => $allUsers,
             'participants' => $this->participants,
+            'allowed_tags' => \WormRP\Model\Thread::ALLOWED_TAGS
         ]);
     }
 
@@ -241,6 +242,39 @@ class Thread extends \WormRP\Controller
             }
         } else {
             $this->displayError('Empty form response.');
+        }
+    }
+
+    public function actionEdit()
+    {
+        if (!Nin::user()) { // how did you get here
+            $this->redirect("/login");
+            return;
+        }
+
+        if (Nin::uid() != $this->thread->idCreator) {
+            $this->displayError('You can only edit your own threads!');
+            return;
+        }
+
+        if (isset($_POST['csrf'])) {
+            if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
+                $this->displayError('Invalid token.');
+                return;
+            }
+            $title = trim($_POST['title']);
+            $tag = trim($_POST['tag']);
+
+            if (mb_strlen($title) == 0 || !in_array($tag, \WormRP\Model\Thread::ALLOWED_TAGS)) {
+                $this->displayError("Invalid thread format, please try again", 400);
+                return;
+            }
+
+            $this->thread->title = $title;
+            $this->thread->tag = $tag;
+            $this->thread->save();
+
+            $this->redirect("/thread/" . $this->thread->idThread);
         }
     }
 }
