@@ -3,6 +3,7 @@
     "erusev/parsedown": "^1.7",
     "erusev/parsedown-extra": "^0.8.1",
     "guzzlehttp/guzzle": "^7.7",
+    "intervention/image": "^2.7",
     "nesbot/carbon": "^2.67",
     "twig/twig": "^3.4",
     "wohali/oauth2-discord-new": "^1.1"

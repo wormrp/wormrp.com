@@ -16,7 +16,8 @@ use Carbon\Carbon;
  * @property string $link
  * @property string $name
  * @property Carbon $dateCreated
- * @property Carbon $dateUpdates
+ * @property Carbon $dateUpdated
+ * @property string $picture
  *
  * @property User $author
  */
@@ -43,5 +44,13 @@ class Character extends \WormRP\Model
         return [
             'author' => [BELONGS_TO, "WormRP\Model\User", 'idAuthor'],
         ];
+    }
+
+    public function getAvatarURL(): string
+    {
+        if (is_null($this->picture)) {
+            return $this->author->getAvatarURL();
+        }
+        return sprintf("/character/%s/avatar", $this->idCharacter);
     }
 }

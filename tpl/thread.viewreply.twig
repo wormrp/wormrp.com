@@ -4,7 +4,11 @@
             {% if post.isDeleted %}
                 <img src="{{ post.author.getAvatarURL() }}" class="is-rounded is-partial-transparent" alt="User avatar">
             {% else %}
-                <img src="{{ post.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
+                {% if post.character %}
+                    <img src="{{ post.character.getAvatarURL() }}" class="is-rounded" alt="Character avatar">
+                {% else %}
+                    <img src="{{ post.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
+                {% endif %}
             {% endif %}
         </p>
     </figure>

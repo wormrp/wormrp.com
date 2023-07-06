@@ -31,6 +31,9 @@ namespace WormRP {
     nf_route("/characters/new", "WormRP\Controller\Characters.New");
     nf_route("/characters/queue", "WormRP\Controller\Characters.Approvals");
 
+    nf_route("/character/:idChar/avatar", "WormRP\Controller\Character.Avatar");
+    nf_route("/character/:idChar/setavatar", "WormRP\Controller\Character.SetAvatar");
+
     nf_route("/admin/users", "WormRP\Controller\Admin.UserList");
     nf_route("/admin/users/:idUser", "WormRP\Controller\Admin.UserFlags");
 
