@@ -231,6 +231,8 @@ class Thread extends \WormRP\Controller
             }
 
             $post->isDeleted = true;
+            $post->idCharacter = null;
+            $post->post = "";
 
             if ($post->save()) {
                 $this->redirect("/thread/" . $this->thread->idThread . "#post-" . $post->idPost);
