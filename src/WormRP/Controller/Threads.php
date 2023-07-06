@@ -9,6 +9,7 @@ namespace WormRP\Controller;
 
 use Nin\ListViews\ModelListView;
 use Nin\Nin;
+use WormRP\DiscordWebhook;
 
 class Threads extends \WormRP\Controller
 {
@@ -79,6 +80,10 @@ class Threads extends \WormRP\Controller
             $thread->tag = $tag;
             $thread->idCreator = Nin::uid();
             $thread->save();
+
+            $disc = new DiscordWebhook(nf_param("webhooks.doots"));
+            $disc->msg = sprintf("<@%s> made a new `%s` thread: %s\nhttps://wormrp.com%s", Nin::uid(), $thread->tag, $thread->title, "/thread/" . $thread->idThread);
+            $disc->send();
 
             $this->redirect("/thread/" . $thread->idThread);
         } else {
