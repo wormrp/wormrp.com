@@ -16,6 +16,7 @@ use Carbon\Carbon;
  * @property int $idAuthor
  * @property int $idCharacter
  * @property int $idPing
+ * @property bool $isDeleted
  * @property string $post
  * @property Carbon $dateCreated
  * @property Carbon $dateUpdates

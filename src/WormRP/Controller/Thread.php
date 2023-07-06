@@ -181,6 +181,43 @@ class Thread extends \WormRP\Controller
         }
     }
 
+    public function actionDeleteReply(int $idPost)
+    {
+        if (!Nin::user()) {
+            $this->redirect("/login");
+            return;
+        }
+
+        /** @var Post $post */
+        $post = Post::findByPk($idPost);
+        if (!$post) {
+            $this->displayError('Unknown post');
+            return;
+        }
+
+        if (Nin::user() != $post->author) {
+            $this->displayError('you can only delete your own posts!');
+            return;
+        }
+
+        if (isset($_POST['csrf'])) {
+            if ($_POST['csrf'] !== \Nin\Nin::getSession('csrf_token')) {
+                $this->displayError('Invalid token.');
+                return;
+            }
+
+            $post->isDeleted = true;
+
+            if ($post->save()) {
+                $this->redirect("/thread/" . $this->thread->idThread . "#post-" . $post->idPost);
+            } else {
+                $this->displayError('Error deleting reply. Please seek help.');
+            }
+        } else {
+            $this->displayError('Empty form response.');
+        }
+    }
+
     protected function getUsersInThread()
     {
         $users = [];

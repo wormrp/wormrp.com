@@ -60,3 +60,7 @@ a[href*="://"]:after {
   border-left: 1px $scheme-main-ter solid;
   padding-left: 0.5rem;
 }
+
+.is-partial-transparent {
+  opacity: 0.5;
+}

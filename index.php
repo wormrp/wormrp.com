@@ -25,6 +25,7 @@ namespace WormRP {
     nf_route("/thread/:idThread", "WormRP\Controller\Thread.View");
     nf_route("/thread/:idThread/reply", "WormRP\Controller\Thread.Reply");
     nf_route("/thread/:idThread/edit/:idPost", "WormRP\Controller\Thread.EditReply");
+    nf_route("/thread/:idThread/delete/:idPost", "WormRP\Controller\Thread.DeleteReply");
 
     nf_route("/characters", "WormRP\Controller\Characters.Index");
     nf_route("/characters/new", "WormRP\Controller\Characters.New");

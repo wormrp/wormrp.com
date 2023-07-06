@@ -1,55 +1,77 @@
 <article class="media reply" id="post-{{ post.idPost }}">
     <figure class="media-left">
         <p class="image is-32x32">
-            <img src="{{ post.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
+            {% if post.isDeleted %}
+                <img src="{{ post.author.getAvatarURL() }}" class="is-rounded is-partial-transparent" alt="User avatar">
+            {% else %}
+                <img src="{{ post.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
+            {% endif %}
         </p>
     </figure>
     <div class="media-content">
-        <div>
-            {% if post.character == false %}
-                <span class="has-text-weight-bold">{{ post.author.displayName }}</span>
-            {% else %}
-                <span class="has-text-weight-bold">{{ post.character.name }}</span> <span class="is-size-7">{{ post.author.displayName }}</span>
-            {% endif %}
-            <span class="is-size-7" title="{{ post.dateCreated.toCookieString() }}">{{ post.dateCreated.diffForHumans() }}</span>
-        </div>
-        <div class="content">{{ post.getMarkdown()|raw }}</div>
-        <div class="buttons are-small">
-            {% if user %}
-                <button class="button is-link is-reply-button" data-post="post-{{ post.idPost }}">
-                    <span class="icon"><i class="fa fa-reply"></i></span>
-                    <span>Reply</span>
-                </button>
-                <!--<button class="button is-warning" data-post="post-{{ post.idPost }}">
+        {% if post.isDeleted %}
+            <div class="is-partial-transparent is-italic">
+                Deleted post
+            </div>
+            <div class="buttons are-small">
+                {% if user %}
+                    <button class="button is-link is-reply-button" data-post="post-{{ post.idPost }}">
+                        <span class="icon"><i class="fa fa-reply"></i></span>
+                        <span>Reply</span>
+                    </button>
+                {% endif %}
+            </div>
+        {% else %}
+            <div>
+                {% if post.character == false %}
+                    <span class="has-text-weight-bold">{{ post.author.displayName }}</span>
+                {% else %}
+                    <span class="has-text-weight-bold">{{ post.character.name }}</span> <span class="is-size-7">{{ post.author.displayName }}</span>
+                {% endif %}
+                <span class="is-size-7" title="{{ post.dateCreated.toCookieString() }}">{{ post.dateCreated.diffForHumans() }}</span>
+            </div>
+            <div class="content">{{ post.getMarkdown()|raw }}</div>
+            <div class="buttons are-small">
+                {% if user %}
+                    <button class="button is-link is-reply-button" data-post="post-{{ post.idPost }}">
+                        <span class="icon"><i class="fa fa-reply"></i></span>
+                        <span>Reply</span>
+                    </button>
+                    <!--<button class="button is-warning" data-post="post-{{ post.idPost }}">
                     <span class="icon"><i class="fa fa-warning"></i></span>
                     <span>Report</span>
                 </button>-->
-                <!-- No reports for now....go ping someone in discord -->
-            {% endif %}
-            {% if user and post.idAuthor == user.idUser %}
-                <button class="button is-link is-edit-button" data-post="post-{{ post.idPost }}">
-                    <span class="icon"><i class="fa fa-edit"></i></span>
-                    <span>Edit</span>
-                </button>
-                <button class="button is-danger">
-                    <span class="icon"><i class="fa fa-trash-o"></i></span>
-                    <span>Delete</span>
-                </button>
-            {% endif %}
-        </div>
+                    <!-- No reports for now....go ping someone in discord -->
+                {% endif %}
+                {% if user and post.idAuthor == user.idUser %}
+                    <button class="button is-link is-edit-button" data-post="post-{{ post.idPost }}">
+                        <span class="icon"><i class="fa fa-edit"></i></span>
+                        <span>Edit</span>
+                    </button>
+                    <form method="post" action="/thread/{{ post.idThread }}/delete/{{ post.idPost }}">
+                        <input type="hidden" name="csrf" value="{{ csrf }}">
+                        <button class="button is-danger" onclick="return confirm('Are you sure you want to delete this reply?');">
+                            <span class="icon"><i class="fa fa-trash-o"></i></span>
+                            <span>Delete</span>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
 
-        {% if post.replies|length == 0 and post.ping %}
-            <div><i class="fa fa-share" aria-hidden="true"></i> {{ include('userAvInline.twig', {user: post.ping}) }}</div>
+            {% if post.replies|length == 0 and post.ping %}
+                <div><i class="fa fa-share" aria-hidden="true"></i> {{ include('userAvInline.twig', {user: post.ping}) }}</div>
+            {% endif %}
+
+            {% if user and post.idAuthor == user.idUser %}
+                <div class="editForm">
+                    {{ include('thread.comment.twig', {edit: post}) }}
+                </div>
+            {% endif %}
         {% endif %}
 
         {% if user %}
             <div class="replyForm">
                 {{ include('thread.comment.twig', {parent: post}) }}
-            </div>
-        {% endif %}
-        {% if user and post.idAuthor == user.idUser %}
-            <div class="editForm">
-                {{ include('thread.comment.twig', {edit: post}) }}
             </div>
         {% endif %}
 

@@ -8,8 +8,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.querySelectorAll(".reply").forEach(function (post, key, parent) {
         let replyForm = post.querySelector(".replyForm");
-        let editForm = post.querySelector(".editForm");
         let replyButton = post.querySelector(".is-reply-button");
+
+        let editForm = post.querySelector(".editForm");
         let editButton = post.querySelector(".is-edit-button");
 
         replyButton.addEventListener("click", function (event) {
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 replyForm.classList.add("is-hidden");
             }
         });
-        editButton.addEventListener("click", function (event) {
+        if (editButton) editButton.addEventListener("click", function (event) {
             if (editForm.classList.contains("is-hidden")) {
                 editForm.classList.remove("is-hidden");
                 replyForm.classList.add("is-hidden");
