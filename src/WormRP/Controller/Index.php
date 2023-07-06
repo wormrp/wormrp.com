@@ -15,10 +15,13 @@ class Index extends Controller
 {
     public function actionIndex()
     {
+        $doots = [];
         if (Nin::user()) {
-            $doots = Post::findAllByAttributes(['idPing' => Nin::uid()]);
-        } else {
-            $doots = [];
+            foreach (Post::findAllByAttributes(['idPing' => Nin::uid(), 'isDeleted' => false]) as $post) {
+                if (count($post->replies) == 0) {
+                    $doots[] = $post;
+                }
+            }
         }
         $this->render("home", ['doots' => $doots]);
     }

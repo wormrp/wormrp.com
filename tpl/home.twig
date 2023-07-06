@@ -1,20 +1,22 @@
 {% extends "base.twig" %}
 
 {% block content %}
-    <section class="content">
-        <h1>About Us</h1>
-        <p>Welcome to WormRP! We are a roleplay community set in the setting of <a href="https://parahumans.wordpress.com/"><em>Worm</em></a>, a superhero web serial made by Wildbow. Our setting is an
-            Alternative Universe of that found in canon, and while reading the novel is encouraged, it is in no way required to hop into the action.</p>
-        <p><strong>Please note that we just had a canon reset and format change due to reddit dying.</strong> Please pardon the dust as we set up our new system. For more information, please drop by
-            the discord server linked above.</p>
-    </section>
+    <div class="columns">
+        <section class="column content">
+            <h1>About Us</h1>
+            <p>Welcome to WormRP! We are a roleplay community set in the setting of <a href="https://parahumans.wordpress.com/"><em>Worm</em></a>, a superhero web serial made by Wildbow. Our setting
+                is an
+                Alternative Universe of that found in canon, and while reading the novel is encouraged, it is in no way required to hop into the action.</p>
+            <p><strong>Please note that we just had a canon reset and format change due to reddit dying.</strong> Please pardon the dust as we set up our new system. For more information, please drop
+                by
+                the discord server linked above.</p>
+        </section>
 
-    {% if user %}
-        <section class="pt-4">
-            <h1 class="title">Notifications</h1>
-            {% if doots|length > 0 %}
-                {% for v in doots %}
-                    {% if v.replies|length == 0 %}
+        {% if user %}
+            <section class="column">
+                <h1 class="title">Notifications</h1>
+                {% if doots|length > 0 %}
+                    {% for v in doots %}
                         <div class="message">
                             <div class="message-header">
                                 <p><a href="/thread/{{ v.thread.idThread }}">{{ v.thread.title }}</a> -
@@ -25,12 +27,11 @@
                                 {{ include('userAvInline.twig', {user: v.author}) }} pinged you in a <a href="/thread/{{ v.thread.idThread }}#post-{{ v.idPost }}">post</a>!
                             </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <div>You aren't up in anything! :)</div>
-            {% endif %}
-        </section>
-    {% endif %}
-
+                    {% endfor %}
+                {% else %}
+                    <div>You aren't up in anything! :)</div>
+                {% endif %}
+            </section>
+        {% endif %}
+    </div>
 {% endblock %}
