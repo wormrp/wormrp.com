@@ -26,6 +26,9 @@ class Thread extends \WormRP\Model
     public const ALLOWED_TAGS = [
         'Event',
         'Patrol',
+        'PHO',
+        'Quest',
+        'Lore',
         'A-Class',
         'S-Class',
         'Noncanon'
