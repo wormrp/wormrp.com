@@ -25,6 +25,11 @@
                 <input type="checkbox" name="banned" {{ v.isBanned ? 'checked' : '' }}> Banned
             </label>
         </div>
+        <div class="field">
+            <label class="checkbox">
+                <input type="checkbox" name="doots" {{ v.isDootable ? 'checked' : '' }}> Dootable
+            </label>
+        </div>
 
         <button class="button is-danger">Save</button>
     </form>

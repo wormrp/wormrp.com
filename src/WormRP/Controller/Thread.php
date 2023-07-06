@@ -8,6 +8,7 @@
 namespace WormRP\Controller;
 
 use Nin\Nin;
+use WormRP\DiscordWebhook;
 use WormRP\Model\Character;
 use WormRP\Model\Post;
 
@@ -43,12 +44,29 @@ class Thread extends \WormRP\Controller
         $this->addBreadcrumb("Viewing thread", "/thread/" . $this->thread->idThread);
 
         $allUsers = \WormRP\Model\User::findAllByAttributes(['isBanned' => false]);
+        $this->participants = $this->getUsersInThread();
 
         $this->render('thread.view', [
             'thread' => $this->thread,
             'allUsers' => $allUsers,
             'participants' => $this->participants,
         ]);
+    }
+
+    protected function getUsersInThread()
+    {
+        $users = [];
+        $users[] = $this->thread->creator;
+        foreach ($this->thread->posts as $post) {
+            if (!$post->author->isBanned && !in_array($post->author, $users)) {
+                $users[] = $post->author;
+            }
+            if ($post->ping && !$post->ping->isBanned && !in_array($post->ping, $users)) {
+                $users[] = $post->ping;
+            }
+        }
+
+        return $users;
     }
 
     public function actionReply()
@@ -106,7 +124,13 @@ class Thread extends \WormRP\Controller
             }
 
             if ($reply->save()) {
-                $this->redirect("/thread/" . $this->thread->idThread . "#post-" . $reply->idPost);
+                $url = "/thread/" . $this->thread->idThread . "#post-" . $reply->idPost;
+                if ($reply->ping && $reply->ping->isDootable) {
+                    $disc = new DiscordWebhook(nf_param("webhooks.doots"));
+                    $disc->msg = sprintf("<@%s> is up in thread `%s`: https://wormrp.com%s", Nin::uid(), $this->thread->title, $url);
+                    $disc->send();
+                }
+                $this->redirect($url);
             } else {
                 $this->displayError('Error saving reply. Please seek help.');
             }
@@ -216,21 +240,5 @@ class Thread extends \WormRP\Controller
         } else {
             $this->displayError('Empty form response.');
         }
-    }
-
-    protected function getUsersInThread()
-    {
-        $users = [];
-        $users[] = $this->thread->creator;
-        foreach ($this->thread->posts as $post) {
-            if (!$post->author->isBanned && !in_array($post->author, $users)) {
-                $users[] = $post->author;
-            }
-            if ($post->ping && !$post->ping->isBanned && !in_array($post->ping, $users)) {
-                $users[] = $post->ping;
-            }
-        }
-
-        return $users;
     }
 }

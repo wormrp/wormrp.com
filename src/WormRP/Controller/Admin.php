@@ -60,6 +60,7 @@ class Admin extends Controller
             $user->isMod = array_key_exists("mod", $_POST);
             $user->isApprover = array_key_exists("approver", $_POST);
             $user->isBanned = array_key_exists("banned", $_POST);
+            $user->isDootable = array_key_exists("doots", $_POST);
             $user->save();
         }
 

@@ -21,6 +21,7 @@ use Carbon\Carbon;
  * @property bool $isMod
  * @property bool $isApprover
  * @property bool $isBanned
+ * @property bool $isDootable
  *
  * @property DbSession[] $sessions
  * @property Character[] $characters
