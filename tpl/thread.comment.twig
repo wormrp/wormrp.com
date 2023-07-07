@@ -37,26 +37,34 @@
         <div class="field is-horizontal">
             <label class="field-label label" for="ping">Up next</label>
             <div class="control field-body">
-                <div class="select">
-                    <select name="ping" id="ping">
-                        <option value="">(none)</option>
-                        {% if participants|length > 0 %}
-                            <optgroup label="Thread participants">
-                                {% for v in participants %}
-                                    {% if edit is defined and edit.idPing is defined and edit.idPing == v.idUser %}
-                                        <option value="{{ v.idUser }}" selected="selected">{{ v.displayName }}</option>
-                                    {% else %}
-                                        <option value="{{ v.idUser }}">{{ v.displayName }}</option>
-                                    {% endif %}
+                <div class="control is-grouped">
+                    <div class="select">
+                        <select name="ping" id="ping">
+                            <option value="">(none)</option>
+                            {% if participants|length > 0 %}
+                                <optgroup label="Thread participants">
+                                    {% for v in participants %}
+                                        {% if edit is defined and edit.idPing is defined and edit.idPing == v.idUser %}
+                                            <option value="{{ v.idUser }}" selected="selected">{{ v.displayName }}</option>
+                                        {% else %}
+                                            <option value="{{ v.idUser }}">{{ v.displayName }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </optgroup>
+                            {% endif %}
+                            <optgroup label="All users">
+                                {% for v in allUsers %}
+                                    <option value="{{ v.idUser }}">{{ v.displayName }}</option>
                                 {% endfor %}
                             </optgroup>
-                        {% endif %}
-                        <optgroup label="All users">
-                            {% for v in allUsers %}
-                                <option value="{{ v.idUser }}">{{ v.displayName }}</option>
-                            {% endfor %}
-                        </optgroup>
-                    </select>
+                        </select>
+                    </div>
+
+                    <div class="control field-body">
+                        <label class="checkbox">
+                            <input type="checkbox" name="doPing" checked="checked"> Discord ping them
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
