@@ -38,6 +38,8 @@ namespace WormRP {
     nf_route("/admin/users", "WormRP\Controller\Admin.UserList");
     nf_route("/admin/users/:idUser", "WormRP\Controller\Admin.UserFlags");
 
+    nf_route("/api/deploy", "WormRP\Controller\API.DeployWebsite");
+
     $defaultConfig = [
         'name' => 'WormRP',
         'debug' => php_sapi_name() == 'cli-server' || file_exists(__DIR__ . "/DEBUG"),
