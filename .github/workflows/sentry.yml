@@ -16,7 +16,7 @@ jobs:
       uses: getsentry/action-release@v1
       env:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        SENTRY_ORG: $SENTRY_ORG
-        SENTRY_PROJECT: $SENTRY_PROJECT
+        SENTRY_ORG: misfitmaid
+        SENTRY_PROJECT: wormrpcom
       with:
         environment: production
