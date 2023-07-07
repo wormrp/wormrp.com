@@ -128,7 +128,7 @@ class Thread extends \WormRP\Controller
                 $url = "/thread/" . $this->thread->idThread . "#post-" . $reply->idPost;
                 if ($reply->ping && $reply->ping->isDootable) {
                     $disc = new DiscordWebhook(nf_param("webhooks.doots"));
-                    $disc->msg = sprintf("<@%s> is up in thread `%s`: https://wormrp.com%s", $reply->ping->idUser, $this->thread->title, $url);
+                    $disc->msg = sprintf("<@%s> is up in thread `%s`: <https://wormrp.com%s>", $reply->ping->idUser, $this->thread->title, $url);
                     $disc->send();
                 }
                 $this->redirect($url);
