@@ -33,6 +33,9 @@
                     <span class="has-text-weight-bold">{{ post.character.name }}</span> <span class="is-size-7">{{ post.author.displayName }}</span>
                 {% endif %}
                 <span class="is-size-7" title="{{ post.dateCreated.toCookieString() }}">{{ post.dateCreated.diffForHumans() }}</span>
+                {% if post.dateCreated != post.dateUpdated %}
+                    <span class="is-size-7" title="{{ post.dateUpdated.toCookieString() }}">(edited {{ post.dateUpdated.diffForHumans() }})</span>
+                {% endif %}
             </div>
             <div class="content">{{ post.getMarkdown()|raw }}</div>
             <div class="buttons are-small">
