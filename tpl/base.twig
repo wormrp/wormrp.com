@@ -96,6 +96,11 @@
             <p><a href="https://maidtech.net/" target="_blank">Offset hosting costs</a></p>
             <p class="is-size-7">Commit <code><a href="https://github.com/wormrp/wormrp.com/commit/{{ constant("GIT_HASH") }}" target="_blank">{{ constant("GIT_DESCRIBE") }}</a></code> rendered in
                 {{ constant("TIME_INIT").diffInRealMilliseconds()|format_number }}ms</p>
+            {% if user and user.isAdmin %}
+                <pre>
+                    {{ constant("TIME_INIT").toJson() }}
+                </pre>
+            {% endif %}
         </div>
     </footer>
 {% endblock %}
