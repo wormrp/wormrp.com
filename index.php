@@ -7,13 +7,11 @@
 
 namespace WormRP {
 
-    use Carbon\Carbon;
-
     require_once __DIR__ . '/vendor/autoload.php';
     include_once __DIR__ . '/nin/nf.php';
 
     date_default_timezone_set('UTC');
-    define("TIME_INIT", Carbon::now());
+    define("TIME_INIT", microtime(true));
 
     if (file_exists(__DIR__ . "/GIT_DESCRIBE")) {
         define("GIT_DESCRIBE", trim(file_get_contents(__DIR__ . "/GIT_DESCRIBE")));

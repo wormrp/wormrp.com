@@ -10,6 +10,7 @@ namespace WormRP;
 use Nin\Nin;
 use Twig\Environment;
 use Twig\Extra\Intl\IntlExtension;
+use Twig\TwigFunction;
 
 class Controller extends \Nin\Controller
 {
@@ -27,6 +28,9 @@ class Controller extends \Nin\Controller
             'strict_variables' => php_sapi_name() == 'cli-server',
         ]);
         $this->twig->addExtension(new IntlExtension());
+        $this->twig->addFunction(new TwigFunction('elapsedTime', function () {
+            return microtime(true) - TIME_INIT;
+        }));
         if (php_sapi_name() == 'cli-server') {
             $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         }
