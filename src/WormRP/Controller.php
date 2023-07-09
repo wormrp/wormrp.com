@@ -9,6 +9,7 @@ namespace WormRP;
 
 use Nin\Nin;
 use Twig\Environment;
+use Twig\Extra\Intl\IntlExtension;
 
 class Controller extends \Nin\Controller
 {
@@ -25,6 +26,7 @@ class Controller extends \Nin\Controller
             'debug' => php_sapi_name() == 'cli-server',
             'strict_variables' => php_sapi_name() == 'cli-server',
         ]);
+        $this->twig->addExtension(new IntlExtension());
         if (php_sapi_name() == 'cli-server') {
             $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         }
