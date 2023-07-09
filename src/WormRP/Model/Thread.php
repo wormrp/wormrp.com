@@ -51,4 +51,18 @@ class Thread extends \WormRP\Model
             'posts' => [HAS_MANY, "WormRP\Model\Post", 'idThread', ['order' => 'asc', 'orderby' => 'dateCreated']]
         ];
     }
+
+    public function getPostCount(): int
+    {
+        return Post::countByAttributes(['isDeleted' => false, 'idThread' => $this->idThread]);
+    }
+
+    public function getLastReplyTime(): Carbon|false
+    {
+        $lastPost = Post::findAllByAttributes(['isDeleted' => false, 'idThread' => $this->idThread], ['order' => 'desc', 'orderby' => 'dateCreated', 'limit' => 1]);
+        if (count($lastPost) == 1) {
+            return $lastPost[0]->dateCreated;
+        }
+        return false;
+    }
 }
