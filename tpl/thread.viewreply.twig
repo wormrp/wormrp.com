@@ -79,10 +79,16 @@
             </div>
         {% endif %}
 
-        {% if post.replies|length > 0 %}
+        {% if post.replies|length > 1 %}
             {% for pp in post.replies %}
                 {{ include('thread.viewreply.twig', {post: pp}) }}
             {% endfor %}
         {% endif %}
     </div>
 </article>
+
+{% if post.replies|length == 1 %}
+    {% for pp in post.replies %}
+        {{ include('thread.viewreply.twig', {post: pp}) }}
+    {% endfor %}
+{% endif %}
