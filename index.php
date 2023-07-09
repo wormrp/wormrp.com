@@ -7,10 +7,24 @@
 
 namespace WormRP {
 
+    use Carbon\Carbon;
+
     require_once __DIR__ . '/vendor/autoload.php';
     include_once __DIR__ . '/nin/nf.php';
 
     date_default_timezone_set('UTC');
+    define("TIME_INIT", Carbon::now());
+
+    if (file_exists(__DIR__ . "/GIT_DESCRIBE")) {
+        define("GIT_DESCRIBE", trim(file_get_contents(__DIR__ . "/GIT_DESCRIBE")));
+    } else {
+        define("GIT_DESCRIBE", trim(`git describe --tags --dirty --always`));
+    }
+    if (file_exists(__DIR__ . "/GIT_HASH")) {
+        define("GIT_HASH", trim(file_get_contents(__DIR__ . "/GIT_HASH")));
+    } else {
+        define("GIT_HASH", trim(`git rev-parse head`));
+    }
 
     nf_route("/", "WormRP\Controller\Index.Index");
 

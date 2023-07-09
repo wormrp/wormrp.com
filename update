@@ -9,3 +9,6 @@
 git pull --recurse-submodules
 composer install --no-progress
 sass -c -s compressed css/wormrp.scss css/wormrp.css
+
+git describe --tags --dirty --always > GIT_DESCRIBE
+git rev-parse HEAD > GIT_HASH

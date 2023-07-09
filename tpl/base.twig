@@ -94,6 +94,8 @@
                 <a rel="nofollow" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
                 unless otherwise noted.</p>
             <p><a href="https://maidtech.net/" target="_blank">Offset hosting costs</a></p>
+            <p class="is-size-7">Commit <code><a href="https://github.com/wormrp/wormrp.com/commit/{{ constant("GIT_HASH") }}" target="_blank">{{ constant("GIT_DESCRIBE") }}</a></code> rendered in
+                {{ constant("TIME_INIT").floatDiffInSeconds()|round(3) }} secs</p>
         </div>
     </footer>
 {% endblock %}

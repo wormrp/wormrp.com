@@ -4,3 +4,6 @@ config.php
 
 /css/*.css
 /css/*.css.map
+
+/GIT_HASH
+/GIT_DESCRIBE
