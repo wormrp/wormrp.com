@@ -51,6 +51,7 @@ namespace WormRP {
     nf_route("/admin/users/:idUser", "WormRP\Controller\Admin.UserFlags");
 
     nf_route("/api/deploy", "WormRP\Controller\API.DeployWebsite");
+    nf_route("/api/roles", "WormRP\Controller\API.Roles");
 
     $defaultConfig = [
         'name' => 'WormRP',
