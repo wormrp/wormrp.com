@@ -30,7 +30,13 @@
                 {% if post.character == false %}
                     <span class="has-text-weight-bold">{{ post.author.displayName }}</span>
                 {% else %}
-                    <span class="has-text-weight-bold">{{ post.character.name }}</span> <span class="is-size-7">{{ post.author.displayName }}</span>
+                    <span class="has-text-weight-bold">
+                        <a href="https://wiki.wormrp.com/wiki/{{ post.character.name|replace({" ": "_"}) }}">{{ post.character.name }}</a>
+                    </span>
+                    {% if user and user.isApprover %}
+                        <span class="has-text-weight-bold"><a href="{{ post.character.link }}">(Sheet)</a></span>
+                    {% endif %}
+                    <span class="is-size-7">{{ post.author.displayName }}</span>
                 {% endif %}
                 <span class="is-size-7" title="{{ post.dateCreated.toCookieString() }}">{{ post.dateCreated.diffForHumans() }}</span>
                 {% if post.dateCreated != post.dateUpdated %}
