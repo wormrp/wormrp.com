@@ -25,4 +25,15 @@ class Index extends Controller
         }
         $this->render("home", ['doots' => $doots]);
     }
+
+    public function actionWikiWizard()
+    {
+        if (array_key_exists('name', $_REQUEST) && mb_strlen(trim($_REQUEST['name'])) > 0) {
+            $name = str_replace(" ", "_", trim($_REQUEST['name']));
+            header("Location: https://wiki.wormrp.com/wiki/edit/$name?preload=WormRP:Character_creation_template");
+            return;
+        }
+
+        $this->render("wikiWizard", []);
+    }
 }

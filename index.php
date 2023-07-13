@@ -25,6 +25,7 @@ namespace WormRP {
     }
 
     nf_route("/", "WormRP\Controller\Index.Index");
+    nf_route("/reports/wikiwizard", "WormRP\Controller\Index.WikiWizard");
 
     nf_route("/login", "WormRP\Controller\User.Login");
     nf_route("/logout", "WormRP\Controller\User.Logout");
