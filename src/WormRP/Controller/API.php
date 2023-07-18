@@ -60,7 +60,7 @@ class API extends Controller
 
         $items = json_decode($reqCharacters->getBody()->getContents(), true)['query']['results'];
 
-        $characters = [];
+        $wikiCharacters = [];
         foreach ($items as $item) {
             $item = current($item);
             $x = new \stdClass();
@@ -86,7 +86,7 @@ class API extends Controller
                     $x->$k = $x->$k[0] ?? null;
                 }
             }
-            $characters[$x->name] = $x;
+            $wikiCharacters[$x->name] = $x;
         }
 
 
@@ -104,22 +104,37 @@ class API extends Controller
             $roles[$name] = $id;
         }
 
+        $siteChars = \WormRP\Model\Character::findAllByAttributes(['status' => \WormRP\Model\Character::CHAR_APPROVED]);
 
         $players = [];
-        foreach ($characters as $character) {
-            if (!array_key_exists(mb_strtolower($character->Author), $players)) {
-                $players[mb_strtolower($character->Author)] = [];
+        foreach ($wikiCharacters as $character) {
+            $siteChar = false;
+            /** @var \WormRP\Model\Character $sc */
+            foreach ($siteChars as $sc) {
+                if (mb_strtolower($character->name) == mb_strtolower($sc->name)) {
+                    $siteChar = $sc;
+                }
+            }
+
+            if (!$siteChar) {
+                continue;
+            }
+
+            $playerID = $siteChar->idAuthor;
+
+            if (!array_key_exists($playerID, $players)) {
+                $players[$playerID] = [];
             }
 
             foreach ($character->Alignment as $a) {
-                if (array_key_exists($a, $roles) && !in_array($roles[$a], $players[mb_strtolower($character->Author)])) {
-                    $players[mb_strtolower($character->Author)][] = $roles[$a];
+                if (array_key_exists($a, $roles) && !in_array($roles[$a], $players[$playerID])) {
+                    $players[$playerID][] = $roles[$a];
                 }
             }
 
             foreach ($character->Affiliation as $a) {
-                if (array_key_exists($a, $roles) && !in_array($roles[$a], $players[mb_strtolower($character->Author)])) {
-                    $players[mb_strtolower($character->Author)][] = $roles[$a];
+                if (array_key_exists($a, $roles) && !in_array($roles[$a], $players[$playerID])) {
+                    $players[$playerID][] = $roles[$a];
                 }
             }
         }
