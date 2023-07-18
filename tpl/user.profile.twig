@@ -7,7 +7,7 @@
     <div class="columns">
         <div class="column is-narrow" style="width:340px;">
             <div class="card">
-                {% if u.banner %}
+                {% if u.banner is defined %}
                     <div class="card-image">
                         <figure class="image">
                             <img src="{{ u.getBannerURL() }}?size=512" alt="User banner">
