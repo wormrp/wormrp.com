@@ -1,0 +1,30 @@
+<article class="media reply">
+    <figure class="media-left">
+        <p class="image is-32x32">
+            {% if item.isDeleted %}
+                <img src="{{ item.author.getAvatarURL() }}" class="is-rounded is-partial-transparent" alt="User avatar">
+            {% else %}
+                {% if item.character %}
+                    <img src="{{ item.character.getAvatarURL() }}" class="is-rounded" alt="Character avatar">
+                {% else %}
+                    <img src="{{ item.author.getAvatarURL() }}" class="is-rounded" alt="User avatar">
+                {% endif %}
+            {% endif %}
+        </p>
+    </figure>
+    <div class="media-content">
+        {% if not item.isDeleted %}
+            <div>
+                <a class="has-text-weight-bold" href="/thread/{{ item.thread.idThread }}#post-{{ item.idPost }}">{{ item.thread.title }}</a>
+                {% if item.character %}
+                    <span class="is-size-7">as {{ item.character.name }}</span>
+                {% endif %}
+                <span class="is-size-7" title="{{ item.dateCreated.toCookieString() }}">{{ item.dateCreated.diffForHumans() }}</span>
+                {% if item.dateCreated != item.dateUpdated %}
+                    <span class="is-size-7" title="{{ item.dateUpdated.toCookieString() }}">(edited {{ item.dateUpdated.diffForHumans() }})</span>
+                {% endif %}
+            </div>
+            <div class="content">{{ item.getMarkdown()|raw }}</div>
+        {% endif %}
+    </div>
+</article>

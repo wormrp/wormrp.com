@@ -53,4 +53,9 @@ class Character extends \WormRP\Model
         }
         return sprintf("/character/%s/avatar", $this->idCharacter);
     }
+
+    public function getPostCount(): int
+    {
+        return Post::countByAttributes(['isDeleted' => false, 'idCharacter' => $this->idCharacter]);
+    }
 }

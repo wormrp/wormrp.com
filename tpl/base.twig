@@ -71,7 +71,11 @@
     <div class="container">
         <div class="section">
             {% if block("title") is defined %}
-                <h2 class="title">{{ block("title") }}</h2>
+                {% if block("customTitle") is defined %}
+                    {{ block("customTitle") }}
+                {% else %}
+                    <h2 class="title">{{ block("title") }}</h2>
+                {% endif %}
             {% endif %}
             {% if breadcrumb is defined %}
                 <nav class="breadcrumb" aria-label="breadcrumbs">

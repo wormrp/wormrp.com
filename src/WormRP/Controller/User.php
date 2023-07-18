@@ -7,6 +7,7 @@
 
 namespace WormRP\Controller;
 
+use Nin\ListViews\ModelListView;
 use Nin\Nin;
 use WormRP\Controller;
 use WormRP\OAuth;
@@ -102,5 +103,23 @@ class User extends Controller
             $this->redirect("/");
         }
 
+    }
+
+    public function actionProfile(string $username, int $page = 1)
+    {
+        $user = \WormRP\Model\User::findByAttributes(['username' => $username]);
+        if (!$user) {
+            $this->displayError('User not found.', 404);
+            return;
+        }
+
+        $postQuery = \WormRP\Model\Post::beginQuery()
+            ->select()
+            ->where('idAuthor', $user->idUser)
+            ->orderby('dateUpdated', 'DESC');
+        $posts = new ModelListView($this, $page, $postQuery);
+        $posts->perpage = 100;
+
+        $this->render("user.profile", ['u' => $user, 'posts' => $posts]);
     }
 }

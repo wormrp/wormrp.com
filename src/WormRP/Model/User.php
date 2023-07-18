@@ -46,6 +46,12 @@ class User extends \WormRP\Model
         ];
     }
 
+    public function getBannerURL(): string
+    {
+        $extension = str_starts_with($this->banner, "a_") ? "gif" : "png";
+        return sprintf("https://cdn.discordapp.com/banners/%s/%s.%s", $this->idUser, $this->banner, $extension);
+    }
+
     public function getAvatarURL(): string
     {
         if (is_null($this->avatar)) {
