@@ -9,7 +9,7 @@
         <span title="{{ item.dateCreated.toCookieString() }}">{{ item.dateCreated.diffForHumans() }}</span>
     </td>
     <td class="nowrap">
-        {% if item.posts|length > 0 %}
+        {% if item.getPostCount() > 0 %}
             <span title="{{ item.getLastReplyTime().toCookieString() }}">{{ item.getLastReplyTime().diffForHumans() }}</span>
         {% endif %}
     </td>
