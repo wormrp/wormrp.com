@@ -1,0 +1,37 @@
+/*!
+ * Copyright (c) 2023 Keira Dueck <sylae@calref.net>
+ * Use of this source code is governed by the MIT license, which
+ * can be found in the LICENSE file.
+ */
+
+@charset "utf-8";
+
+@media (prefers-color-scheme: dark) {
+  $navbar-text: #ffbe47;
+  $navbar-text-hover: #c8a900;
+  $navbar-bg: #0c0c0c;
+
+  $navbar-item-color: $navbar-text;
+  $navbar-item-hover-color: $navbar-text-hover;
+  $navbar-background-color: $navbar-bg;
+  $navbar-item-hover-background-color: $navbar-bg;
+  $navbar-dropdown-background-color: $navbar-bg;
+  $navbar-dropdown-item-color: $navbar-text;
+  $navbar-dropdown-item-hover-color: $navbar-text-hover;
+  $navbar-dropdown-item-hover-background-color: $navbar-bg;
+  $navbar-dropdown-border-top: 0;
+  $navbar-dropdown-arrow: $navbar-text;
+
+  $text: hsl(0, 0%, 71%);
+
+  $scheme-main: #010201;
+  $scheme-main-bis: #292a29;
+  $scheme-main-ter: #212221;
+  $input-border-color: #515251;
+  $code-background: $scheme-main;
+  $tag-background-color: $scheme-main;
+  $text-strong: hsl(0, 0%, 86%);
+
+  @import "common";
+
+}
