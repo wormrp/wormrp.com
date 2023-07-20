@@ -81,7 +81,9 @@ class DatabaseSessionHandler implements
 
     public function gc($max_lifetime): int
     {
-        return 0; // todo: actually do GC, for now keep everything.
+        nf_db_context()
+            ->query("delete from sessions where dateUpdated < (now() - interval $max_lifetime second)");
+        return 0; // nin doesnt give us effected rows
     }
 
     public function open($path, $name): bool
