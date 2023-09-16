@@ -44,10 +44,18 @@
                             {% if participants|length > 0 %}
                                 <optgroup label="Thread participants">
                                     {% for v in participants %}
-                                        {% if edit is defined and edit.idPing is defined and edit.idPing == v.idUser %}
-                                            <option value="{{ v.idUser }}" selected="selected">{{ v.displayName }}</option>
+                                        {% if participantChars[v.idUser]|length > 0 %}
+                                            {% if edit is defined and edit.idPing is defined and edit.idPing == v.idUser %}
+                                                <option value="{{ v.idUser }}" selected="selected">{{ v.displayName }} ({{ participantChars[v.idUser]|join(", ") }})</option>
+                                            {% else %}
+                                                <option value="{{ v.idUser }}">{{ v.displayName }} ({{ participantChars[v.idUser]|join(", ") }})</option>
+                                            {% endif %}
                                         {% else %}
-                                            <option value="{{ v.idUser }}">{{ v.displayName }}</option>
+                                            {% if edit is defined and edit.idPing is defined and edit.idPing == v.idUser %}
+                                                <option value="{{ v.idUser }}" selected="selected">{{ v.displayName }}</option>
+                                            {% else %}
+                                                <option value="{{ v.idUser }}">{{ v.displayName }}</option>
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %}
                                 </optgroup>

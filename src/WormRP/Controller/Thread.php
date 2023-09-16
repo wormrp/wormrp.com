@@ -19,6 +19,11 @@ class Thread extends \WormRP\Controller
      */
     public array $participants = [];
 
+    /**
+     * @var array
+     */
+    public array $participantChars = [];
+
     public \WormRP\Model\Thread|bool $thread = false;
 
     function __construct($idThread)
@@ -50,20 +55,31 @@ class Thread extends \WormRP\Controller
             'thread' => $this->thread,
             'allUsers' => $allUsers,
             'participants' => $this->participants,
+            'participantChars' => $this->participantChars,
             'allowed_tags' => \WormRP\Model\Thread::ALLOWED_TAGS
         ]);
     }
 
-    protected function getUsersInThread()
+    protected function getUsersInThread(bool $populateChars = true)
     {
         $users = [];
         $users[] = $this->thread->creator;
         foreach ($this->thread->posts as $post) {
             if (!$post->author->isBanned && !in_array($post->author, $users)) {
                 $users[] = $post->author;
+                if ($populateChars && !array_key_exists($post->idAuthor, $this->participantChars)) {
+                    $this->participantChars[$post->idAuthor] = [];
+                }
             }
             if ($post->ping && !$post->ping->isBanned && !in_array($post->ping, $users)) {
                 $users[] = $post->ping;
+                if ($populateChars && !array_key_exists($post->idPing, $this->participantChars)) {
+                    $this->participantChars[$post->idPing] = [];
+                }
+            }
+
+            if ($populateChars && !is_null($post->idCharacter) && !in_array($post->character, $this->participantChars)) {
+                $this->participantChars[$post->idAuthor] = $post->character->name;
             }
         }
 
