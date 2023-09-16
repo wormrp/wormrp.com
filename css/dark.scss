@@ -32,6 +32,9 @@
   $tag-background-color: $scheme-main;
   $text-strong: hsl(0, 0%, 86%);
 
+  $message-header-background-color: $scheme-main-ter;
+  $message-background-color: $scheme-main-bis;
+
   @import "common";
 
 }
