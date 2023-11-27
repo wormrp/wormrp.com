@@ -35,7 +35,7 @@ namespace WormRP {
 
     nf_route("/threads", "WormRP\Controller\Threads.Index");
     nf_route("/threads/search", "WormRP\Controller\Threads.Search");
-    nf_route("/threads/new", "WormRP\Controller\Threads.New");
+    // nf_route("/threads/new", "WormRP\Controller\Threads.New");
 
     nf_route("/thread/:idThread", "WormRP\Controller\Thread.View");
     nf_route("/thread/:idThread/edit", "WormRP\Controller\Thread.Edit");
